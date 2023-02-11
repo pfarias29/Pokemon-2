@@ -32,10 +32,9 @@
 .include "./TilesPalletTown/grama.data"
 .include "./TilesPalletTown/flor.data"
 
-###########################
-### Sprites personagem ####
-###  Enumeração 23-31 #####
-###########################
+##########################
+### Sprites personagem ###
+##########################
 .include "./sprites/ash_andando_dir.s"
 .include "./sprites/ash_andando_esq.s"
 .include "./sprites/ash_costas.s"
