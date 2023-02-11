@@ -25,10 +25,10 @@ tiles_casa: .word 5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
 		  5,2,2,2,0,0,0,0,0,3,-3,0,0,0,0,0,0,2,2,5,
 		  5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 		  
-posicao_inicial_casa: .word 10,13
+posicao_inicial_casa: .word 9,13
 	
 .text
-
+CASA:
 	li s7, 0		#s7 define o sprite do personagem andando
 	la s6, ash_costas	#s6 define o sprite do personagem
 	li s8, 0		#s8 define se vai ser usada a imagem ao contrário
@@ -212,10 +212,10 @@ ESQ0:
 	li s7, 1
 		
 ESQ:
-	la t0, posicao_inicial_casa
-	lw t1, 0(t0)
+	la a0, posicao_inicial_casa
+	lw t1, 0(a0)
 	addi t1, t1, -1
-	sw t1, 0(t0)
+	sw t1, 0(a0)
 
 	j INICIO
 	
@@ -230,10 +230,10 @@ DIR0:
 	li s7, 1
 	
 DIR:
-	la t0, posicao_inicial_casa
-	lw t1, 0(t0)
+	la a0, posicao_inicial_casa
+	lw t1, 0(a0)
 	addi t1, t1, 1
-	sw t1, 0(t0)
+	sw t1, 0(a0)
 	
 	j INICIO
 	
@@ -247,10 +247,10 @@ CIMA0:
 	la s6, ash_costas_esq
 	li s7, 1
 CIMA:
-	la t0, posicao_inicial_casa
-	lw t1, 4(t0)
+	la a0, posicao_inicial_casa
+	lw t1, 4(a0)
 	addi t1, t1, -1
-	sw t1, 4(t0)
+	sw t1, 4(a0)
 	
 	j INICIO
 	
@@ -264,10 +264,19 @@ BAIXO0:
 	la s6, ash_andando_esq
 	li s7, 1
 BAIXO:
-	la t0, posicao_inicial_casa
-	lw t1, 4(t0)
+	la a0, posicao_inicial_casa
+	lw t2, 0(a0)
+	lw t1, 4(a0)
 	addi t1, t1, 1
-	sw t1, 4(t0)
+	
+	mul t2, t2, t1
+	li t5, 140
+	beq t5, t2, SAI_CASA
+	
+	li t5, 112
+	beq t5, t2, SAI_CASA
+	
+	sw t1, 4(a0)
 	
 	j INICIO
 	
@@ -325,7 +334,6 @@ CONTRARIO_CASA:
 	call PRINT_TILE_INVERSO
 	j KEY2_CASA
 	
+SAI_CASA:
+	j PALLET_TOWN
 	
-	
-.data
-.include "./palletTown"	
