@@ -32,10 +32,9 @@
 .include "./TilesPalletTown/grama.data"
 .include "./TilesPalletTown/flor.data"
 
-###########################
-### Sprites personagem ####
-###  Enumeração 23-31 #####
-###########################
+##########################
+### Sprites personagem ###
+##########################
 .include "./sprites/ash_andando_dir.s"
 .include "./sprites/ash_andando_esq.s"
 .include "./sprites/ash_costas.s"
@@ -88,7 +87,7 @@ posicao_inicial: .word 5,5
 posicao_personagem: .word 7,8
 
 .text
-	
+PALLET_TOWN:	
 	li s7, 0		#s7 define o sprite do personagem andando
 	la s6, ash_parado	#s6 define o sprite do personagem
 	li s8, 0		#s8 define se vai ser usada a imagem ao contrário
@@ -659,8 +658,14 @@ CIMA1:
 	li s7, 1
 CIMA2:
 	la a0, posicao_inicial
+	lw t1, 0(a0)
 	lw t0, 4(a0)
 	addi t0, t0, -1	
+	
+	li t2, 20
+	mul t1, t1, t0
+	beq t1, t2, ENTRA_CASA
+	
 	sw t0, 4(a0)
 	j COMECO
 	
@@ -680,3 +685,9 @@ BAIXO2:
 	addi t0, t0, 1	
 	sw t0, 4(a0)
 	j COMECO
+	
+ENTRA_CASA:
+	j CASA
+	
+.data
+.include "./casa"
