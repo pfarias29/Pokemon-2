@@ -33,6 +33,20 @@
 .include "./TilesPalletTown/flor.data"
 
 ###########################
+### Sprites personagem ####
+###  Enumeração 23-31 #####
+###########################
+.include "./sprites/ash_andando_dir.s"
+.include "./sprites/ash_andando_esq.s"
+.include "./sprites/ash_costas.s"
+.include "./sprites/ash_costas_dir.s"
+.include "./sprites/ash_costas_esq.s"
+.include "./sprites/ash_dir.s"
+.include "./sprites/ash_dir_dir.s"
+.include "./sprites/ash_dir_esq.s"
+.include "./sprites/ash_parado.s"
+
+###########################
 ### Números que definem ###
 ###  a posição do Tile  ###
 ###   tamanho: 35x30    ###
@@ -69,10 +83,18 @@ tiles: .word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 	     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 	     
+	     
 posicao_inicial: .word 5,5
+posicao_personagem: .word 7,8
 
 .text
+	
+	li s7, 0		#s7 define o sprite do personagem andando
+	la s6, ash_parado	#s6 define o sprite do personagem
+	li s8, 0		#s8 define se vai ser usada a imagem ao contrário
+
 COMECO:
+
 ### Calcula posição nos tiles ###
 	la a0, posicao_inicial
 	lw t0, 0(a0)
@@ -222,6 +244,7 @@ PERCORRE_TILES:
 	li t2, 22
 	beq t0, t2, CARREGA22
 	
+	j KEY2
 	
 PRE_PRINT_TILE:
 	li t0, 0
@@ -243,7 +266,7 @@ PRE_PRINT_TILE:
 	bne t2, t4, PERCORRE_TILES
 	
 ### Se for igual, terminou de printar a tela e deve rodar o jogo ###
-	j KEY2
+	j CALCULA_POSICAO_PERSONAGEM
 
 PRE_PRINT_TILE_INVERSO:
 	li t0, 0
@@ -265,7 +288,7 @@ PRE_PRINT_TILE_INVERSO:
 	bne t2, t4, PERCORRE_TILES
 	
 ### Se for igual, terminou de printar a tela e deve rodar o jogo ###
-	j KEY2
+	j CALCULA_POSICAO_PERSONAGEM
 	
 	
 BLACK_TILE:
@@ -287,7 +310,6 @@ PRINT_BLACK_TILE:
 	addi t5, t5, 1
 	addi s0, s0, 304	#320-16 
 	
-	
 	li t2, 16
 	bne t5, t2, PRINT_BLACK_TILE
 	
@@ -305,7 +327,7 @@ PRINT_BLACK_TILE:
 	li t2, 15
 	
 	bne t2, t4, PERCORRE_TILES
-	
+	j CALCULA_POSICAO_PERSONAGEM
 
 
 CARREGA1:
@@ -534,7 +556,37 @@ PRINT_TILE_INVERSO:
 	li t2, 16
 	bne t5, t2, PRINT_TILE_INVERSO
 	ret
+
+CALCULA_POSICAO_PERSONAGEM:
+	la t2, posicao_personagem
+	lw t0, 0(t2)
+	lw t1, 4(t2)
 	
+	li s0, 0xff0
+	slli s0, s0, 20
+	
+	li t2, 16
+	mul t5, t0, t2
+	add s0, s0, t5
+	
+	mul t5, t1, t2
+	li t2, 320
+	mul t5, t5, t2
+	add s0, s0, t5
+	
+	li t0, 0
+	li t5, 0
+	
+	mv a1, s6			#s6 ficará salvo a sprite do ash
+	addi a1, a1, 8
+	
+	bnez s8, CONTRARIO
+	call PRINT_TILE
+	j KEY2
+
+CONTRARIO:
+	call PRINT_TILE_INVERSO
+			
 KEY2:
 	li t1,0xFF200000		# carrega o endereço de controle do KDMMIO
 	lw t0,0(t1)			# Le bit de Controle Teclado
@@ -562,6 +614,16 @@ MOVE_TELA:
 
 
 MOVE_DIREITA:
+	li s8, 0
+	beqz s7, DIR1
+	la s6, ash_dir_dir
+	li s7, 0
+	j DIR2
+	
+DIR1:
+	la s6, ash_dir_esq
+	li s7, 1
+DIR2:
 	la a0, posicao_inicial
 	lw t0, 0(a0)
 	addi t0, t0, 1	
@@ -569,6 +631,16 @@ MOVE_DIREITA:
 	j COMECO
 	
 MOVE_ESQUERDA:
+	li s8, 1
+	beqz s7, ESQ1
+	la s6, ash_dir_dir
+	li s7, 0
+	j ESQ2
+	
+ESQ1:
+	la s6, ash_dir_esq
+	li s7, 1
+ESQ2:
 	la a0, posicao_inicial
 	lw t0, 0(a0)
 	addi t0, t0, -1	
@@ -576,6 +648,16 @@ MOVE_ESQUERDA:
 	j COMECO
 	
 MOVE_CIMA:
+	li s8, 0
+	beqz s7, CIMA1
+	la s6, ash_costas_dir
+	li s7, 0
+	j CIMA2
+	
+CIMA1:
+	la s6, ash_costas_esq
+	li s7, 1
+CIMA2:
 	la a0, posicao_inicial
 	lw t0, 4(a0)
 	addi t0, t0, -1	
@@ -583,6 +665,16 @@ MOVE_CIMA:
 	j COMECO
 	
 MOVE_BAIXO:
+	li s8, 0
+	beqz s7, BAIXO1
+	la s6, ash_andando_dir
+	li s7, 0
+	j BAIXO2
+	
+BAIXO1:
+	la s6, ash_andando_esq
+	li s7, 1
+BAIXO2:	
 	la a0, posicao_inicial
 	lw t0, 4(a0)
 	addi t0, t0, 1	
