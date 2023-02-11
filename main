@@ -1,0 +1,485 @@
+.data
+#########################
+###   Tiles da casa   ###
+###  Enumeração 1-20 ####
+###    1-5: Unicos   ####
+#########################
+.include "./TilesPalletTown/frenteMeioEsquerdo.data"
+.include "./TilesPalletTown/tetoCimaMeio.data"
+.include "./TilesPalletTown/tetoMeioMeio.data"
+.include "./TilesPalletTown/frenteMeioMeio.data"
+.include "./TilesPalletTown/tetoCimaUnico.data"
+.include "./TilesPalletTown/tetoMeioUnico.data"
+.include "./TilesPalletTown/frenteMeioDireito.data"
+.include "./TilesPalletTown/tetoCimaDireito.data"
+.include "./TilesPalletTown/tetoMeioDireito.data"
+.include "./TilesPalletTown/tetoCimaEsquerdo.data"
+.include "./TilesPalletTown/tetoMeioEsquerdo.data"
+.include "./TilesPalletTown/tetoBaixoUnico.data"
+.include "./TilesPalletTown/frenteBaixoUnico.data"
+.include "./TilesPalletTown/frenteMeioUnico.data"
+.include "./TilesPalletTown/tetoBaixoDireito.data"
+.include "./TilesPalletTown/frenteBaixoMeio.data"
+.include "./TilesPalletTown/tetoBaixoMeio.data"
+.include "./TilesPalletTown/tetoBaixoEsquerdo.data"
+.include "./TilesPalletTown/frenteBaixoEsquerdo.data"
+.include "./TilesPalletTown/frenteBaixoDireito.data"
+
+#########################
+###  Tiles do cenário ###
+### Enumeração 21-22 ####
+#########################
+.include "./TilesPalletTown/grama.data"
+.include "./TilesPalletTown/flor.data"
+
+###########################
+### Números que definem ###
+###  a posição do Tile  ###
+###   tamanho: 25x20    ###
+###   limite: 20x15     ###
+###########################
+tiles: .word 22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,
+	     22,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,22,
+	     22,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,22,
+	     22,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,22,
+	     22,21,21,21,6,7,8,1,-8,-7,-6,21,21,21,21,21,21,21,21,21,21,21,21,21,22,
+	     22,21,21,21,9,10,11,2,-11,-10,-9,21,21,21,21,21,22,22,22,22,21,21,21,21,22,
+	     22,21,21,21,12,13,14,3,-14,-13,-12,21,21,21,21,21,22,22,22,22,21,21,21,21,22,
+	     22,21,21,21,15,16,17,4,-17,-16,-15,21,21,21,21,21,22,22,22,22,21,21,21,21,22,
+	     22,21,21,21,18,19,20,5,-20,-19,-18,21,21,21,21,21,21,21,21,21,21,21,21,21,22,
+	     22,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,22,
+	     22,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,22,
+	     22,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,22,
+	     22,21,21,21,21,21,21,21,21,21,21,21,21,21,6,7,8,1,-8,-7,-6,21,21,21,22,
+	     22,21,21,21,21,21,21,21,21,21,21,21,21,21,9,10,11,2,-11,-10,-9,21,21,21,22,
+	     22,21,21,21,22,22,22,21,21,21,21,21,21,21,12,13,14,3,-14,-13,-12,21,21,21,22,
+	     22,21,21,21,22,22,22,21,21,21,21,21,21,21,15,16,17,4,-17,-16,-15,21,21,21,22,
+	     22,21,21,21,22,22,22,21,21,21,21,21,21,21,18,19,20,5,-20,-19,-16,21,21,21,22,
+	     22,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,22,
+	     22,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,22,
+	     22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22
+	     
+posicao_inicial: .word 0,0
+
+.text
+COMECO:
+### Calcula posição nos tiles ###
+	la a0, posicao_inicial
+	lw t0, 0(a0)
+	lw t1, 4(a0)
+	
+	li t2, 4
+	mul t0, t0, t2
+	mul t1, t1, t2
+	
+	li t2, 25
+	mul t1, t1, t2
+	
+	la a0, tiles
+	add a0, a0, t0
+	add a0, a0, t1
+###################################	
+	li t3, 0
+	li t4, 0
+	
+PERCORRE_TILES:
+	li s0, 0xff0
+	slli s0, s0, 20
+	
+### Calcula a posição no display ###
+	li t2, 16
+	mul t5, t3, t2
+	add s0, s0, t5
+	
+	mul t5, t2, t4
+	li t2, 320
+	mul t5, t5, t2
+	add s0, s0, t5
+####################################
+	lw t0, 0(a0)
+	
+	li t2, 1
+	beq t0, t2, CARREGA1
+	
+	li t2, 2
+	beq t0, t2, CARREGA2
+	
+	li t2, 3
+	beq t0, t2, CARREGA3
+	
+	li t2, 4
+	beq t0, t2, CARREGA4
+	
+	li t2, 5
+	beq t0, t2, CARREGA5
+	
+	li t2, 6
+	beq t0, t2, CARREGA6
+	
+	li t2, -6
+	beq t0, t2, CARREGA6NEG
+	
+	li t2, 7
+	beq t0, t2, CARREGA7
+	
+	li t2, -7
+	beq t0, t2, CARREGA7NEG
+	
+	li t2, 8
+	beq t0, t2, CARREGA8
+	
+	li t2, -8
+	beq t0, t2, CARREGA8NEG
+	
+	li t2, 9
+	beq t0, t2, CARREGA9
+	
+	li t2, -9
+	beq t0, t2, CARREGA9NEG
+	
+	li t2, 10
+	beq t0, t2, CARREGA10
+	
+	li t2, -10
+	beq t0, t2, CARREGA10NEG
+	
+	li t2, 11
+	beq t0, t2, CARREGA11
+	
+	li t2, -11
+	beq t0, t2, CARREGA11NEG
+	
+	li t2, 12
+	beq t0, t2, CARREGA12
+	
+	li t2, -12
+	beq t0, t2, CARREGA12NEG
+	
+	li t2, 13
+	beq t0, t2, CARREGA13
+	
+	li t2, -13
+	beq t0, t2, CARREGA13NEG
+	
+	li t2, 14
+	beq t0, t2, CARREGA14
+	
+	li t2, -14
+	beq t0, t2, CARREGA14NEG
+	
+	li t2, 15
+	beq t0, t2, CARREGA15
+	
+	li t2, -15
+	beq t0, t2, CARREGA15NEG
+	
+	li t2, 16
+	beq t0, t2, CARREGA16
+	
+	li t2, -16
+	beq t0, t2, CARREGA16NEG
+	
+	li t2, 17
+	beq t0, t2, CARREGA17
+	
+	li t2, -17
+	beq t0, t2, CARREGA17NEG
+	
+	li t2, 18
+	beq t0, t2, CARREGA18
+	
+	li t2, -18
+	beq t0, t2, CARREGA18NEG
+	
+	li t2, 19
+	beq t0, t2, CARREGA19
+	
+	li t2, -19
+	beq t0, t2, CARREGA19NEG
+	
+	li t2, 20
+	beq t0, t2, CARREGA20
+	
+	li t2, -20
+	beq t0, t2, CARREGA20NEG
+	
+	li t2, 21
+	beq t0, t2, CARREGA21
+	
+	li t2, 22
+	beq t0, t2, CARREGA22
+	
+	
+PRE_PRINT_TILE:
+	li t0, 0
+	li t5, 0
+	
+	call PRINT_TILE
+
+	addi a0, a0, 4		
+	addi t3, t3, 1
+
+	li t2, 20
+	bne t2, t3, PERCORRE_TILES
+	
+	li t3, 0
+	addi t4, t4, 1
+	addi a0, a0, 20		#volta os tiles para a linha abaixo
+	li t2, 15
+	
+	bne t2, t4, PERCORRE_TILES
+	
+### Se for igual, terminou de printar a tela e deve rodar o jogo ###
+	li a7, 10
+	ecall
+
+PRE_PRINT_TILE_INVERSO:
+	li t0, 0
+	li t5, 0
+	
+	addi s0, s0, 15
+	call PRINT_TILE_INVERSO
+	
+	addi a0, a0, 4		
+	addi t3, t3, 1
+	
+	li t2, 20
+	bne t2, t3, PERCORRE_TILES
+	
+	li t3, 0
+	addi t4, t4, 1
+	addi a0, a0, 20		#volta os tiles para a linha abaixo
+	li t2, 15
+	bne t2, t4, PERCORRE_TILES
+	
+### Se for igual, terminou de printar a tela e deve rodar o jogo ###
+	li a7, 10
+	ecall
+	
+CARREGA1:
+	la a1, tetoCimaUnico
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+	
+CARREGA2:
+	la a1, tetoMeioUnico
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+	
+CARREGA3:
+	la a1, tetoBaixoUnico
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+	
+CARREGA4:
+	la a1, frenteMeioUnico
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+	
+CARREGA5:
+	la a1, frenteBaixoUnico
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+	
+CARREGA6:
+	la a1, tetoCimaEsquerdo
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA6NEG:
+	la a1, tetoCimaEsquerdo
+	addi a1, a1, 8
+	j PRE_PRINT_TILE_INVERSO
+			
+CARREGA7:
+	la a1, tetoCimaMeio
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA7NEG:
+	la a1, tetoCimaMeio
+	addi a1, a1, 8
+	j PRE_PRINT_TILE_INVERSO
+	
+CARREGA8:
+	la a1, tetoCimaDireito
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA8NEG:
+	la a1, tetoCimaDireito
+	addi a1, a1, 8
+	j PRE_PRINT_TILE_INVERSO
+	
+CARREGA9:
+	la a1, tetoMeioEsquerdo
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA9NEG:
+	la a1, tetoMeioEsquerdo
+	addi a1, a1, 8
+	j PRE_PRINT_TILE_INVERSO
+	
+CARREGA10:
+	la a1, tetoMeioMeio
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+	
+CARREGA10NEG:
+	la a1, tetoMeioMeio
+	addi a1, a1, 8
+	j PRE_PRINT_TILE_INVERSO
+	
+CARREGA11:
+	la a1, tetoMeioDireito
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+	
+CARREGA11NEG:
+	la a1, tetoMeioDireito
+	addi a1, a1, 8
+	j PRE_PRINT_TILE_INVERSO
+	
+CARREGA12:
+	la a1, tetoBaixoEsquerdo
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+	
+CARREGA12NEG:
+	la a1, tetoBaixoEsquerdo
+	addi a1, a1, 8
+	j PRE_PRINT_TILE_INVERSO
+	
+CARREGA13:
+	la a1, tetoBaixoMeio
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+	
+CARREGA13NEG:
+	la a1, tetoBaixoMeio
+	addi a1, a1, 8
+	j PRE_PRINT_TILE_INVERSO
+	
+CARREGA14:
+	la a1, tetoBaixoDireito
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+	
+CARREGA14NEG:
+	la a1, tetoBaixoDireito
+	addi a1, a1, 8
+	j PRE_PRINT_TILE_INVERSO
+	
+CARREGA15:
+	la a1, frenteMeioEsquerdo
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+	
+CARREGA15NEG:
+	la a1, frenteMeioEsquerdo
+	addi a1, a1, 8
+	j PRE_PRINT_TILE_INVERSO
+	
+CARREGA16:
+	la a1, frenteMeioMeio
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+	
+CARREGA16NEG:
+	la a1, frenteMeioMeio
+	addi a1, a1, 8
+	j PRE_PRINT_TILE_INVERSO
+	
+CARREGA17:
+	la a1, frenteMeioDireito
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+	
+CARREGA17NEG:
+	la a1, frenteMeioDireito
+	addi a1, a1, 8
+	j PRE_PRINT_TILE_INVERSO
+	
+CARREGA18:
+	la a1, frenteBaixoEsquerdo
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+	
+CARREGA18NEG:
+	la a1, frenteBaixoEsquerdo
+	addi a1, a1, 8
+	j PRE_PRINT_TILE_INVERSO
+	
+CARREGA19:
+	la a1, frenteBaixoMeio
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+	
+CARREGA19NEG:
+	la a1, frenteBaixoMeio
+	addi a1, a1, 8
+	j PRE_PRINT_TILE_INVERSO
+	
+CARREGA20:
+	la a1, frenteBaixoDireito
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+	
+CARREGA20NEG:
+	la a1, frenteBaixoDireito
+	addi a1, a1, 8
+	j PRE_PRINT_TILE_INVERSO
+	
+CARREGA21:
+	la a1, grama
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+	
+CARREGA22:
+	la a1, flor
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+
+
+
+PRINT_TILE:
+	lw t2, 0(a1)		#imagem
+	sw t2, 0(s0)		#frame
+	
+	addi t0, t0, 4
+	addi a1, a1, 4
+	addi s0, s0, 4
+	
+	li t2, 16
+	bne t0, t2, PRINT_TILE
+	
+	li t0, 0
+	addi t5, t5, 1
+	addi s0, s0, 304	#320-16 
+	
+	
+	li t2, 16
+	bne t5, t2, PRINT_TILE
+	ret
+	
+PRINT_TILE_INVERSO:	
+	lb t2, 0(a1)		#imagem
+	sb t2, 0(s0)		#frame
+	
+	addi t0, t0, 1
+	addi a1, a1, 1
+	addi s0, s0, -1
+	
+	li t2, 16
+	bne t0, t2, PRINT_TILE_INVERSO
+	
+	li t0, 0
+	addi t5, t5, 1
+	addi s0, s0, 336	#320+16 
+	
+	li t2, 16
+	bne t5, t2, PRINT_TILE_INVERSO
+	ret
+	
