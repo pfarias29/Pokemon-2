@@ -64,36 +64,6 @@
 .include "./sprites/ash_parado.s"
 
 ##########################
-###      Alfabeto      ###
-##########################
-.include "./alfabeto/a.s"
-.include "./alfabeto/b.s"
-.include "./alfabeto/c.s"
-.include "./alfabeto/d.s"
-.include "./alfabeto/e.s"
-.include "./alfabeto/f.s"
-.include "./alfabeto/g.s"
-.include "./alfabeto/h.s"
-.include "./alfabeto/i.s"
-.include "./alfabeto/j.s"
-.include "./alfabeto/k.s"
-.include "./alfabeto/l.s"
-.include "./alfabeto/m.s"
-.include "./alfabeto/n.s"
-.include "./alfabeto/o.s"
-.include "./alfabeto/p.s"
-.include "./alfabeto/q.s"
-.include "./alfabeto/r.s"
-.include "./alfabeto/s.s"
-.include "./alfabeto/t.s"
-.include "./alfabeto/u.s"
-.include "./alfabeto/v.s"
-.include "./alfabeto/w.s"
-.include "./alfabeto/x.s"
-.include "./alfabeto/y.s"
-.include "./alfabeto/z.s"
-
-##########################
 ###        MAPAS       ###
 ##########################
 .include "./casa.s"
