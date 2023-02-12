@@ -273,7 +273,7 @@ BAIXO:
 	li t5, 140
 	beq t5, t2, SAI_CASA
 	
-	li t5, 112
+	li t5, 126
 	beq t5, t2, SAI_CASA
 	
 	sw t1, 4(a0)
