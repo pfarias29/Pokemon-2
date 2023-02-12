@@ -45,6 +45,36 @@
 .include "./sprites/ash_dir_esq.s"
 .include "./sprites/ash_parado.s"
 
+##########################
+###      Alfabeto      ###
+##########################
+.include "./alfabeto/a.s"
+.include "./alfabeto/b.s"
+.include "./alfabeto/c.s"
+.include "./alfabeto/d.s"
+.include "./alfabeto/e.s"
+.include "./alfabeto/f.s"
+.include "./alfabeto/g.s"
+.include "./alfabeto/h.s"
+.include "./alfabeto/i.s"
+.include "./alfabeto/j.s"
+.include "./alfabeto/k.s"
+.include "./alfabeto/l.s"
+.include "./alfabeto/m.s"
+.include "./alfabeto/n.s"
+.include "./alfabeto/o.s"
+.include "./alfabeto/p.s"
+.include "./alfabeto/q.s"
+.include "./alfabeto/r.s"
+.include "./alfabeto/s.s"
+.include "./alfabeto/t.s"
+.include "./alfabeto/u.s"
+.include "./alfabeto/v.s"
+.include "./alfabeto/w.s"
+.include "./alfabeto/x.s"
+.include "./alfabeto/y.s"
+.include "./alfabeto/z.s"
+
 ###########################
 ### Números que definem ###
 ###  a posição do Tile  ###
@@ -77,7 +107,7 @@ tiles: .word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 	     0,0,0,0,0,22,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,22,0,0,0,0,0,
 	     0,0,0,0,0,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,0,0,0,0,0,
 	     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	     23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,0,0,0,0,0,0,0,0,0,
 	     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -243,6 +273,85 @@ PERCORRE_TILES:
 	li t2, 22
 	beq t0, t2, CARREGA22
 	
+	# Do 23 ao 49 sao para o alfabeto
+	li t2, 23
+	beq t0, t2, CARREGA23
+
+	li t2, 24
+	beq t0, t2, CARREGA24
+
+	li t2, 25
+	beq t0, t2, CARREGA25
+
+	li t2, 26
+	beq t0, t2, CARREGA26
+
+	li t2, 27
+	beq t0, t2, CARREGA27
+
+	li t2, 28
+	beq t0, t2, CARREGA28
+
+	li t2, 29
+	beq t0, t2, CARREGA29
+
+	li t2, 30
+	beq t0, t2, CARREGA30
+
+	li t2, 31
+	beq t0, t2, CARREGA31
+
+	li t2, 32
+	beq t0, t2, CARREGA32
+
+	li t2, 33
+	beq t0, t2, CARREGA33
+
+	li t2, 34
+	beq t0, t2, CARREGA34
+
+	li t2, 35
+	beq t0, t2, CARREGA35
+
+	li t2, 36
+	beq t0, t2, CARREGA36
+
+	li t2, 37
+	beq t0, t2, CARREGA37
+
+	li t2, 38
+	beq t0, t2, CARREGA38
+
+	li t2, 39
+	beq t0, t2, CARREGA39
+
+	li t2, 40
+	beq t0, t2, CARREGA40
+
+	li t2, 41
+	beq t0, t2, CARREGA41
+
+	li t2, 42
+	beq t0, t2, CARREGA42
+
+	li t2, 43
+	beq t0, t2, CARREGA43
+
+	li t2, 44
+	beq t0, t2, CARREGA44
+
+	li t2, 45
+	beq t0, t2, CARREGA45
+
+	li t2, 46
+	beq t0, t2, CARREGA46
+
+	li t2, 47
+	beq t0, t2, CARREGA47
+
+	li t2, 48
+	beq t0, t2, CARREGA48
+
 	j KEY2
 	
 PRE_PRINT_TILE:
@@ -514,6 +623,137 @@ CARREGA22:
 	addi a1, a1, 8
 	j PRE_PRINT_TILE
 
+# CARREGA23 ao CARREGA48 e o alfabeto
+
+CARREGA23:
+	la a1, a
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA24:
+	la a1, b
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA25:
+	la a1, c
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA26:
+	la a1, d
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA27:
+	la a1, e
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA28:
+	la a1, f
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA29:
+	la a1, g
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA30:
+	la a1, h
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA31:
+	la a1, i
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA32:
+	la a1, jota
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA33:
+	la a1, k
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA34:
+	la a1, l
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA35:
+	la a1, m
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA36:
+	la a1, n
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA37:
+	la a1, o
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA38:
+	la a1, p
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA39:
+	la a1, q
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA40:
+	la a1, r
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA41:
+	la a1, s
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA42:
+	la a1, t
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA43:
+	la a1, u
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA44:
+	la a1, v
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA45:
+	la a1, w
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA46:
+	la a1, x
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA47:
+	la a1, y
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA48:
+	la a1, z
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
 
 
 
