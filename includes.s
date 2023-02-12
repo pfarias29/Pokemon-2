@@ -31,15 +31,24 @@
 .include "./TilesPalletTown/frenteBaixoEsquerdo.data"
 .include "./TilesPalletTown/frenteBaixoDireito.data"
 
-#########################
-###  Tiles do cenário ###
-#########################
+##########################
+###  Tiles Pallet Town ###
+##########################
 .include "./TilesPalletTown/grama.data"
 .include "./TilesPalletTown/flor.data"
 .include "./TilesPalletTown/arvore_1_1.s"
 .include "./TilesPalletTown/arvore_1_2.s"
 .include "./TilesPalletTown/arvore_2_1.s"
 .include "./TilesPalletTown/arvore_2_2.s"
+
+###########################
+### Sprites Mapa Rochas ###
+###########################
+.include "./sprites/areia.s"
+.include "./sprites/chao_mapa2.s"
+.include "./sprites/diagonal_big_rocha.s"
+.include "./sprites/lateral_big_rocha.s"
+.include "./sprites/pedra.s"
 
 ##########################
 ### Sprites personagem ###
