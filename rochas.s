@@ -1,15 +1,5 @@
 .data
 ###########################
-### Sprites mapa rochas ###
-###   Enumeração: 1-5   ###
-###########################
-.include "./sprites/areia.s"
-.include "./sprites/chao_mapa2.s"
-.include "./sprites/diagonal_big_rocha.s"
-.include "./sprites/lateral_big_rocha.s"
-.include "./sprites/pedra.s"
-
-###########################
 ### Números que definem ###
 ###  a posição do Tile  ###
 ###   tamanho: 45x40    ###
@@ -329,4 +319,3 @@ BAIXO2_ROCHA:
 	
 SAI_ROCHA:
 	j PALLET_TOWN
-	
