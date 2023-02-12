@@ -1,37 +1,37 @@
 .data
-##########################
-###    Sprites casa   ####
-###   Enumeração 0-3  ####
-##########################
-.include "./sprites/professor.s"
-.include "./sprites/caixa.s"
-.include "./sprites/chao.s"
-.include "./sprites/tapete.s"
+##############################
+###    Interior da casa   ####
+##############################
+# 0 	= chao
+# 2 	= caixa
+# 3 	= tapete 
+# -3 	= tapete espelhado
+# 5 	= tile preto
 
-
-tiles_casa: .word 5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
-		  5,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
-		  5,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
-		  5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,5,
-		  5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
-		  5,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,5,
-		  5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
-		  5,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
-		  5,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,5,
-		  5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,5,
-		  5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
-		  5,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
-		  5,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,5,
-		  5,2,2,2,0,0,0,0,0,3,-3,0,0,0,0,0,0,2,2,5,
-		  5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
+tiles_casa: .word 
+	5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
+	5,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
+	5,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
+	5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,5,
+	5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
+	5,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,5,
+	5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
+	5,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
+	5,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,5,
+	5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,5,
+	5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
+	5,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
+	5,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,5,
+	5,2,2,2,0,0,0,0,0,3,-3,0,0,0,0,0,0,2,2,5,
+	5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
 		  
 posicao_inicial_casa: .word 9,13
 	
 .text
 CASA:
-	li s7, 0		#s7 define o sprite do personagem andando
+	li s7, 0			#s7 define o sprite do personagem andando
 	la s6, ash_costas	#s6 define o sprite do personagem
-	li s8, 0		#s8 define se vai ser usada a imagem ao contrário
+	li s8, 0			#s8 define se vai ser usada a imagem ao contrário
 INICIO:
 	la a0, tiles_casa
 	
@@ -39,7 +39,7 @@ INICIO:
 	li t4, 0
 
 PERCORRE_TILES_CASA:
-	li s0, 0xff0
+	li s0, 0xFF0
 	slli s0, s0, 20
 
 ### Calcula a posição no display ###
@@ -183,6 +183,7 @@ KEY2_CASA:
    	beq t0,zero,FIM_CASA 	   	# Se não há tecla pressionada então vai para FIM
   	lw t2,4(t1)  			# le o valor da tecla tecla
 	call MOVE_PERSONAGEM
+
 FIM_CASA:	
 	j KEY2_CASA
 
@@ -243,9 +244,11 @@ TROCA_CIMA:
 	la s6, ash_costas_dir
 	li s7, 0
 	j CIMA
+
 CIMA0:	
 	la s6, ash_costas_esq
 	li s7, 1
+
 CIMA:
 	la a0, posicao_inicial_casa
 	lw t1, 4(a0)
@@ -260,9 +263,11 @@ TROCA_BAIXO:
 	la s6, ash_andando_dir
 	li s7, 0
 	j BAIXO
+
 BAIXO0:	
 	la s6, ash_andando_esq
 	li s7, 1
+
 BAIXO:
 	la a0, posicao_inicial_casa
 	lw t2, 0(a0)
@@ -284,7 +289,7 @@ PRINT_PROF:
 	la a1, professor
 	addi a1, a1, 8
 	
-	li s0, 0xff0
+	li s0, 0xFF0
 	slli s0, s0, 20
 	
 	li t2, 5 		#a posição do professor não muda: 5,5
@@ -308,7 +313,7 @@ CALCULA_POSICAO_PERSONAGEM_CASA:
 	lw t0, 0(t2)
 	lw t1, 4(t2)
 	
-	li s0, 0xff0
+	li s0, 0xFF0
 	slli s0, s0, 20
 	
 	li t2, 16

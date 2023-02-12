@@ -1,49 +1,45 @@
 .data
 #########################
-###   Tiles da casa   ###
-###  Enumeração 1-20 ####
-###    1-5: Unicos   ####
+###    Pallet Town    ###
 #########################
-.include "./TilesPalletTown/frenteMeioEsquerdo.data"
-.include "./TilesPalletTown/tetoCimaMeio.data"
-.include "./TilesPalletTown/tetoMeioMeio.data"
-.include "./TilesPalletTown/frenteMeioMeio.data"
-.include "./TilesPalletTown/tetoCimaUnico.data"
-.include "./TilesPalletTown/tetoMeioUnico.data"
-.include "./TilesPalletTown/frenteMeioDireito.data"
-.include "./TilesPalletTown/tetoCimaDireito.data"
-.include "./TilesPalletTown/tetoMeioDireito.data"
-.include "./TilesPalletTown/tetoCimaEsquerdo.data"
-.include "./TilesPalletTown/tetoMeioEsquerdo.data"
-.include "./TilesPalletTown/tetoBaixoUnico.data"
-.include "./TilesPalletTown/frenteBaixoUnico.data"
-.include "./TilesPalletTown/frenteMeioUnico.data"
-.include "./TilesPalletTown/tetoBaixoDireito.data"
-.include "./TilesPalletTown/frenteBaixoMeio.data"
-.include "./TilesPalletTown/tetoBaixoMeio.data"
-.include "./TilesPalletTown/tetoBaixoEsquerdo.data"
-.include "./TilesPalletTown/frenteBaixoEsquerdo.data"
-.include "./TilesPalletTown/frenteBaixoDireito.data"
-
-#########################
-###  Tiles do cenário ###
-### Enumeração 21-22 ####
-#########################
-.include "./TilesPalletTown/grama.data"
-.include "./TilesPalletTown/flor.data"
-
-##########################
-### Sprites personagem ###
-##########################
-.include "./sprites/ash_andando_dir.s"
-.include "./sprites/ash_andando_esq.s"
-.include "./sprites/ash_costas.s"
-.include "./sprites/ash_costas_dir.s"
-.include "./sprites/ash_costas_esq.s"
-.include "./sprites/ash_dir.s"
-.include "./sprites/ash_dir_dir.s"
-.include "./sprites/ash_dir_esq.s"
-.include "./sprites/ash_parado.s"
+# 0   	= tile preto
+# 1	  	= tetoCimaUnico
+# 2	  	= tetoMeioUnico
+# 3 	= tetoBaixoUnico
+# 4		= frenteMeioUnico
+# 5 	= frenteBaixoUnico
+# 6   	= tetoCimaEsquerdo
+# 6   	= tetoCimaEsquerdo espelhado
+# 7   	= tetoCimaMeio
+# -7   	= tetoCimaMeio espelhado
+# 8   	= tetoCimaDireito
+# -8  	= tetoCimaDireito espelhado
+# 9 	= tetoMeioEsquerdo
+# -9 	= tetoMeioEsquerdo espelhado
+# 10  	= tetoMeioMeio
+# -10 	= tetoMeioMeio espelhado
+# 11	= tetoMeioDireito
+# -11	= tetoMeioDireito espelhado
+# 12	= tetoBaixoEsquerdo
+# -12	= tetoBaixoEsquerdo espelhado
+# 13	= tetoBaixoMeio
+# -13	= tetoBaixoMeio espelhado
+# 14	= tetoBaixoDireito
+# -14	= tetoBaixoDireito espelhado
+# 15	= frenteMeioEsquerdo
+# -15	= frenteMeioEsquerdo espelhado
+# 16	= frenteMeioMeio
+# -16	= frenteMeioMeio espelhado
+# 17	= frenteMeioDireito
+# -17	= frenteMeioDireito espelhado
+# 18	= frenteBaixoEsquerdo
+# -18	= frenteBaixoEsquerdo espelhado
+# 19	= frenteBaixoMeio
+# -19	= frenteBaixoMeio espelhado
+# 20	= frenteBaixoDireito
+# -20	= frenteBaixoDireito espelhado
+# 21  	= grama
+# 22  	= flor
 
 ###########################
 ### Números que definem ###
@@ -93,6 +89,37 @@ tiles: .word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 	     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 	     
 
+tiles: .word 
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,0,0,0,0,0,
+	0,0,0,0,51,52,51,52,51,52,51,52,51,52,51,52,51,52,51,52,51,52,51,52,51,52,51,52,51,52,0,0,0,0,0,
+	0,0,0,0,49,50,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,49,50,0,0,0,0,0,
+	0,0,0,0,51,52,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,51,52,0,0,0,0,0,
+	0,0,0,0,49,50,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,49,50,0,0,0,0,0,
+	0,0,0,0,51,52,21,21,21,6,7,8,1,-8,-7,-6,21,21,21,21,21,21,21,21,21,21,21,21,51,52,0,0,0,0,0,
+	0,0,0,0,49,50,21,21,21,9,10,11,2,-11,-10,-9,21,21,21,21,21,22,22,22,22,21,21,21,49,50,0,0,0,0,0,
+	0,0,0,0,51,52,21,21,21,12,13,14,3,-14,-13,-12,21,21,21,21,21,22,22,22,22,21,21,21,51,52,0,0,0,0,0,
+	0,0,0,0,49,50,21,21,21,15,16,17,4,-17,-16,-15,21,21,21,21,21,22,22,22,22,21,21,21,49,50,0,0,0,0,0,
+	0,0,0,0,51,52,21,21,21,18,19,20,5,-20,-19,-18,21,21,21,21,21,21,21,21,21,21,21,21,51,52,0,0,0,0,0,
+	0,0,0,0,49,50,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,49,50,0,0,0,0,0,
+	0,0,0,0,51,52,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,51,52,0,0,0,0,0,
+	0,0,0,0,49,50,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,49,50,0,0,0,0,0,
+	0,0,0,0,51,52,21,21,21,21,21,21,21,21,21,21,21,21,21,6,7,8,1,-8,-7,-6,21,21,51,52,0,0,0,0,0,
+	0,0,0,0,49,50,21,21,21,21,21,21,21,21,21,21,21,21,21,9,10,11,2,-11,-10,-9,21,21,49,50,0,0,0,0,0,
+	0,0,0,0,51,52,21,21,21,22,22,22,21,21,21,21,21,21,21,12,13,14,3,-14,-13,-12,21,21,51,52,0,0,0,0,0,
+	0,0,0,0,49,50,21,21,21,22,22,22,21,21,21,21,21,21,21,15,16,17,4,-17,-16,-15,21,21,49,50,0,0,0,0,0,
+	0,0,0,0,51,52,21,21,21,22,22,22,21,21,21,21,21,21,21,18,19,20,5,-20,-19,-18,21,21,51,52,0,0,0,0,0,
+	0,0,0,0,49,50,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,49,50,0,0,0,0,0,
+	0,0,0,0,51,52,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,51,52,0,0,0,0,0,
+	0,0,0,0,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,49,50,0,0,0,0,0,
+	0,0,0,0,51,52,51,52,51,52,51,52,51,52,51,52,51,52,51,52,51,52,51,52,51,52,51,52,51,52,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 	     
 	     
 posicao_inicial: .word 10,10
@@ -100,9 +127,9 @@ posicao_personagem: .word 7,8
 
 .text
 PALLET_TOWN:	
-	li s7, 0		#s7 define o sprite do personagem andando
+	li s7, 0			#s7 define o sprite do personagem andando
 	la s6, ash_parado	#s6 define o sprite do personagem
-	li s8, 0		#s8 define se vai ser usada a imagem ao contrário
+	li s8, 0			#s8 define se vai ser usada a imagem ao contrário
 
 COMECO:
 
@@ -255,6 +282,98 @@ PERCORRE_TILES:
 	li t2, 22
 	beq t0, t2, CARREGA22
 	
+	# Do 23 ao 48 sao para o alfabeto
+	li t2, 23
+	beq t0, t2, CARREGA23
+
+	li t2, 24
+	beq t0, t2, CARREGA24
+
+	li t2, 25
+	beq t0, t2, CARREGA25
+
+	li t2, 26
+	beq t0, t2, CARREGA26
+
+	li t2, 27
+	beq t0, t2, CARREGA27
+
+	li t2, 28
+	beq t0, t2, CARREGA28
+
+	li t2, 29
+	beq t0, t2, CARREGA29
+
+	li t2, 30
+	beq t0, t2, CARREGA30
+
+	li t2, 31
+	beq t0, t2, CARREGA31
+
+	li t2, 32
+	beq t0, t2, CARREGA32
+
+	li t2, 33
+	beq t0, t2, CARREGA33
+
+	li t2, 34
+	beq t0, t2, CARREGA34
+
+	li t2, 35
+	beq t0, t2, CARREGA35
+
+	li t2, 36
+	beq t0, t2, CARREGA36
+
+	li t2, 37
+	beq t0, t2, CARREGA37
+
+	li t2, 38
+	beq t0, t2, CARREGA38
+
+	li t2, 39
+	beq t0, t2, CARREGA39
+
+	li t2, 40
+	beq t0, t2, CARREGA40
+
+	li t2, 41
+	beq t0, t2, CARREGA41
+
+	li t2, 42
+	beq t0, t2, CARREGA42
+
+	li t2, 43
+	beq t0, t2, CARREGA43
+
+	li t2, 44
+	beq t0, t2, CARREGA44
+
+	li t2, 45
+	beq t0, t2, CARREGA45
+
+	li t2, 46
+	beq t0, t2, CARREGA46
+
+	li t2, 47
+	beq t0, t2, CARREGA47
+
+	li t2, 48
+	beq t0, t2, CARREGA48
+
+	# Arvore
+	li t2, 49
+	beq t0, t2, CARREGA49
+
+	li t2, 50
+	beq t0, t2, CARREGA50
+
+	li t2, 51
+	beq t0, t2, CARREGA51
+
+	li t2, 52
+	beq t0, t2, CARREGA52
+
 	j KEY2
 	
 PRE_PRINT_TILE:
@@ -526,7 +645,158 @@ CARREGA22:
 	addi a1, a1, 8
 	j PRE_PRINT_TILE
 
+# CARREGA23 ao CARREGA48 e o alfabeto
 
+CARREGA23:
+	la a1, a
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA24:
+	la a1, b
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA25:
+	la a1, c
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA26:
+	la a1, d
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA27:
+	la a1, e
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA28:
+	la a1, f
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA29:
+	la a1, g
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA30:
+	la a1, h
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA31:
+	la a1, i
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA32:
+	la a1, jota
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA33:
+	la a1, k
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA34:
+	la a1, l
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA35:
+	la a1, m
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA36:
+	la a1, n
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA37:
+	la a1, o
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA38:
+	la a1, p
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA39:
+	la a1, q
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA40:
+	la a1, r
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA41:
+	la a1, s
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA42:
+	la a1, t
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA43:
+	la a1, u
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA44:
+	la a1, v
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA45:
+	la a1, w
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA46:
+	la a1, x
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA47:
+	la a1, y
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA48:
+	la a1, z
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+# Arvore
+CARREGA49:
+	la a1, arvore_1_1
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA50:
+	la a1, arvore_1_2
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA51:
+	la a1, arvore_2_1
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
+
+CARREGA52:
+	la a1, arvore_2_2
+	addi a1, a1, 8
+	j PRE_PRINT_TILE
 
 
 PRINT_TILE:
@@ -710,10 +980,6 @@ BAIXO2:
 	
 ENTRA_CASA:
 	j CASA
-	
-VAI_ROCHA:
-	j ROCHAS
-	
+
 .data
-.include "./casa"
-.include "./rochas"
+	.include "./includes.s"
