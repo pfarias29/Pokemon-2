@@ -36,6 +36,10 @@
 #########################
 .include "./TilesPalletTown/grama.data"
 .include "./TilesPalletTown/flor.data"
+.include "./TilesPalletTown/arvore_1_1.s"
+.include "./TilesPalletTown/arvore_1_2.s"
+.include "./TilesPalletTown/arvore_2_1.s"
+.include "./TilesPalletTown/arvore_2_2.s"
 
 ##########################
 ### Sprites personagem ###
