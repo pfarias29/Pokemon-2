@@ -216,6 +216,7 @@ NOTAS: 74,1764,74,215,74,4,74,215,81,4,81,367,74,73,74,215,74,4,74,215,82,4,82,3
 ##########################
 ###        TILES       ###
 ##########################
+.include "./palletTown.s"
 
 .include "./alfabeto/a.s"
 .include "./alfabeto/c.s"
@@ -229,5 +230,8 @@ NOTAS: 74,1764,74,215,74,4,74,215,81,4,81,367,74,73,74,215,74,4,74,215,82,4,82,3
 
 .include "./sprites/pokebola.s"
 
+
+
 .include "./SYSTEMv21.s"
-.include "./palletTown.s"
+
+

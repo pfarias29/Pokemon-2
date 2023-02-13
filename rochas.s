@@ -42,11 +42,42 @@ tiles_rochas: .byte
 	     
 posicao_inicial_personagem: .word 10,14
 
+### Informações sobre onde estarão os pokemons para lutar: x, y, tipo de pokemon ###
+inimigos: .byte 0,0,0,0,0,0,0,0,0,0,0,0
+
 .text
 ROCHAS:	
 	li s7, 0		#s7 define o sprite do personagem andando
 	la s6, ash_costas	#s6 define o sprite do personagem
 	li s8, 0		#s8 define se vai ser usada a imagem ao contrário
+
+PREENCHE_INIMIGOS:
+	li t3, 0
+
+	la a2, inimigos
+	
+LOOP_PREENCHE_INIMIGOS:
+	call Random
+	
+	li a1, 20
+	call __umodsi3
+	sb a0, 0(a2)
+	
+	li a1, 15
+	call __umodsi3
+	sb a0, 1(a2)
+	
+	li a1, 3
+	call __umodsi3
+	addi a0, a0, 1 		# o número tem que estar entre 1 e 3
+	sb a0, 2(a2)
+	
+	addi t3, t3, 1
+	addi a2, a2, 3
+	
+	li t2, 4
+	bne t2, t3, LOOP_PREENCHE_INIMIGOS
+### Quando terminar, o vetor de inimigos estará preenchido com as informações dos inimigos ###
 
 INICIO_ROCHA:
 	la a0, tiles_rochas
@@ -279,7 +310,8 @@ DIR2_ROCHA:
 	lw t0, 0(a0)
 	addi t0, t0, 1	
 	sw t0, 0(a0)
-	j INICIO_ROCHA
+	
+	j CHECA_INIMIGOS
 	
 MOVE_ESQUERDA_ROCHA:
 	li s8, 0
@@ -296,8 +328,9 @@ ESQ2_ROCHA:
 	lw t0, 0(a0)
 	addi t0, t0, -1	
 	sw t0, 0(a0)
-	j INICIO_ROCHA
 	
+	j CHECA_INIMIGOS
+		
 MOVE_CIMA_ROCHA:
 	li s8, 0
 	beqz s7, CIMA1_ROCHA
@@ -314,7 +347,8 @@ CIMA2_ROCHA:
 	addi t0, t0, -1	
 	
 	sw t0, 4(a0)
-	j INICIO_ROCHA
+	
+	j CHECA_INIMIGOS
 	
 MOVE_BAIXO_ROCHA:
 	li s8, 0
@@ -336,7 +370,8 @@ BAIXO2_ROCHA:
 	bge t0, t2, TALVEZ_SAI_ROCHA
 	
 	sw t0, 4(a0)
-	j INICIO_ROCHA
+	
+	j CHECA_INIMIGOS
 	
 TALVEZ_SAI_ROCHA:
 	li t2, 10
@@ -347,3 +382,46 @@ TALVEZ_SAI_ROCHA:
 	
 SAI_ROCHA:
 	j PALLET_TOWN
+
+CHECA_INIMIGOS:
+	la a2, inimigos
+	la a3, posicao_inicial_personagem
+	lw s1, 0(a3)
+	lw s2, 4(a3)
+	
+	li t3, 0
+	
+LOOP_CHECA_INIMIGOS:
+	lb t0, 0(a2)
+	
+	beq t0, s1, TALVEZ_INIMIGO
+	
+	addi t3, t3, 1
+	addi a2, a2, 3
+	li t2, 4
+	bne t2, t3, LOOP_CHECA_INIMIGOS
+	j INICIO_ROCHA
+	
+TALVEZ_INIMIGO:
+	lb t0, 1(a2)
+	
+	beq t0, s2, LUTA_INIMIGO
+	
+	addi t3, t3, 1
+	addi a2, a2, 3
+	li t2, 4
+	bne t2, t3, LOOP_CHECA_INIMIGOS
+	j INICIO_ROCHA
+	
+LUTA_INIMIGO:
+	li a7, 1
+	li a0, -1
+	ecall
+	
+	li a7, 10
+	ecall
+	
+	 
+
+
+

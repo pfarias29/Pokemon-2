@@ -92,10 +92,11 @@ tiles: .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 posicao_inicial: .word 10,10
 posicao_personagem: .word 7,8
 
+
 .text
 PALLET_TOWN:	
 	li s7, 0			#s7 define o sprite do personagem andando
-	la s6, ash_parado	#s6 define o sprite do personagem
+	la s6, ash_parado		#s6 define o sprite do personagem
 	li s8, 0			#s8 define se vai ser usada a imagem ao contrário
 
 COMECO:
