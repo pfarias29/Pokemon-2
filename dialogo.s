@@ -158,7 +158,7 @@ KEY_INVENTARIO:
   	lw t2,4(t1)  			# le o valor da tecla tecla
 		        
     li t3, 's'		        
-   	beq t2, t3, RETORNA_CASA
+   	beq t2, t3, RETORNA_MAPA
 	       
    	bne t2, t3, USAR_ITEM	   
 
@@ -282,7 +282,7 @@ POKEMON_SQUIRTLE:
     call KEY_DIALOGO
 
 # TODO: fazer voltar pro mapa de origem
-ABRE_INVENTARIO:
+ABRE_INVENTARIO:    
     li a0, 0x00000000
     li t0, 0        #limite de colunas
     li t1, 0        #limite de linhas
@@ -436,10 +436,23 @@ TESTA9:
 
 j KEY_INVENTARIO
 
+RETORNA_MAPA:
+	li t0, 1
+	beq t0, s9, RETORNA_CASA
+	
+	li t0, 2
+	beq t0, s9, RETORNA_ROCHAS
+	
+	li t0, 3
+	beq t0, s9, RETORNA_PALLET_TOWN
+	
 
 RETORNA_CASA:
     j CASA
-
+RETORNA_ROCHAS:
+	j ROCHAS
+RETORNA_PALLET_TOWN:
+	j PALLET_TOWN
 
 .data
 ##############################

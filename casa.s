@@ -204,6 +204,7 @@ MOVE_PERSONAGEM:
 	beq t0, t2, DIALOGO
 
 	li t0, 'i'
+	li s9, 1		#s9 = guarda o mapa que estava antes de abrir o inventário
 	beq t0, t2, ABRE_INVENTARIO
 	
 	ret
