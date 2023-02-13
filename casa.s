@@ -199,17 +199,23 @@ MOVE_PERSONAGEM:
 	
 	li t0, 's'
 	beq t0, t2, TROCA_BAIXO
+
+	li t0, 'p'
+	beq t0, t2, DIALOGO
+
+	li t0, 'i'
+	beq t0, t2, ABRE_INVENTARIO
 	
 	ret
 	
 TROCA_ESQ:
-	li s8, 1
+	li s8, 0
 	beqz s7, ESQ0
-	la s6, ash_dir_dir
+	la s6, ash_esq_dir
 	li s7, 0
 	j ESQ
 ESQ0:	
-	la s6, ash_dir_esq
+	la s6, ash_esq_esq
 	li s7, 1
 		
 ESQ:

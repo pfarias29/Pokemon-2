@@ -630,7 +630,7 @@ CONTRARIO:
 			
 KEY2:
 	li t1,0xFF200000		# carrega o endereço de controle do KDMMIO
-	lw t0,0(t1)			# Le bit de Controle Teclado
+	lw t0,0(t1)				# Le bit de Controle Teclado
 	andi t0,t0,0x0001		# mascara o bit menos significativo
    	beq t0,zero,FIM   	   	# Se não há tecla pressionada então vai para FIM
   	lw t2,4(t1)  			# le o valor da tecla tecla
@@ -672,14 +672,14 @@ DIR2:
 	j COMECO
 	
 MOVE_ESQUERDA:
-	li s8, 1
+	li s8, 0
 	beqz s7, ESQ1
-	la s6, ash_dir_dir
+	la s6, ash_esq_dir
 	li s7, 0
 	j ESQ2
 	
 ESQ1:
-	la s6, ash_dir_esq
+	la s6, ash_esq_esq
 	li s7, 1
 ESQ2:
 	la a0, posicao_inicial
