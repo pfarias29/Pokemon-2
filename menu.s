@@ -90,13 +90,13 @@ SETUP:
     la a0, msg2
     call PRINT_STR
 
-    mv s11, ra
     call PLAY_SONG
 
 # INICIAR O JOGO
     la a0, msg1
     call PRINT_STR
 
+    call KEY_MENU
 
 # ecall print string
 # a1 = largura
@@ -164,7 +164,7 @@ PLAY_SONG:
 	ret
 
 LOOP: 
-    beq t0, s1, FIM				# contador chegou no final? entao  va para FIM
+    beq t0, s1, FIM_SONG				# contador chegou no final? entao  va para FIM
 	lw a0, 0(s0)				# le o valor da nota
 	lw a1, 4(s0)				# le a duracao da nota
 	li a7, 31					# define a chamada de syscall
@@ -177,7 +177,7 @@ LOOP:
 	j LOOP					    # volta ao loop
 	ret
 	
-FIM:
+FIM_SONG:
     li a0, 40					# define a nota
 	li a1, 300					# define a duracao da nota em ms
 	li a2, 127					# define o instrumento
@@ -185,6 +185,19 @@ FIM:
 	li a7, 33					# define o syscall
 	ecall						# toca a nota
 	ret
+
+KEY_MENU:
+	li t1,0xFF200000		# carrega o endereço de controle do KDMMIO
+	lw t0,0(t1)			    # Le bit de Controle Teclado
+	andi t0,t0,0x0001		# mascara o bit menos significativo
+   	beq t0,zero,FIM_MENU   	# Se não há tecla pressionada então vai para FIM
+  	lw t2,4(t1)  			# le o valor da tecla tecla
+    li t3, 's'		# carrega o valor da tecla S
+   	beq t2,t3,PALLET_TOWN	# se a tecla for S então vai para mapa PalletTown
+   	j FIM_MENU				# se não for S então volta para FIM_MENU
+            
+FIM_MENU:	j KEY_MENU		# retorna
+
 
 .data
 ##############################
@@ -219,3 +232,4 @@ NOTAS: 74,1764,74,215,74,4,74,215,81,4,81,367,74,73,74,215,74,4,74,215,82,4,82,3
 .include "./sprites/pokebola_aberta.s"
 
 .include "./SYSTEMv21.s"
+.include "./palletTown.s"
