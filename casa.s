@@ -8,7 +8,7 @@
 # -3 	= tapete espelhado
 # 5 	= tile preto
 
-tiles_casa: .word 
+tiles_casa: .byte 
 	5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,
 	5,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
 	5,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
@@ -30,7 +30,7 @@ posicao_inicial_casa: .word 9,13
 .text
 CASA:
 	li s7, 0			#s7 define o sprite do personagem andando
-	la s6, ash_costas	#s6 define o sprite do personagem
+	la s6, ash_costas		#s6 define o sprite do personagem
 	li s8, 0			#s8 define se vai ser usada a imagem ao contrário
 INICIO:
 	la a0, tiles_casa
@@ -53,7 +53,7 @@ PERCORRE_TILES_CASA:
 	add s0, s0, t5
 ####################################
 	 	
-	lw t0, 0(a0)
+	lb t0, 0(a0)
 	
 	li t2, 0
 	beq t0, t2, CHAO
@@ -96,7 +96,7 @@ PRINT_BLACK_TILE_CASA:
 	
 ### Fim de printar o tile ###
 
-	addi a0, a0, 4		
+	addi a0, a0, 1		
 	addi t3, t3, 1
 
 	li t2, 20
@@ -115,7 +115,7 @@ PRE_PRINT_TILE_CASA:
 	
 	call PRINT_TILE
 
-	addi a0, a0, 4		
+	addi a0, a0, 1		
 	addi t3, t3, 1
 
 	li t2, 20
@@ -137,7 +137,7 @@ PRE_PRINT_TILE_INVERSO_CASA:
 	addi s0, s0, 15
 	call PRINT_TILE_INVERSO
 	
-	addi a0, a0, 4		
+	addi a0, a0, 1		
 	addi t3, t3, 1
 	
 	li t2, 20

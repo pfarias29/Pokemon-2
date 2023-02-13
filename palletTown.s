@@ -47,7 +47,7 @@
 ###   tamanho: 45x40    ###
 ###   limite: 20x15     ###
 ###########################
-tiles: .word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+tiles: .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -113,6 +113,10 @@ COMECO:
 	mul t1, t1, t2
 	
 	la a0, tiles
+	
+	srli t0, t0, 2
+	srli t1, t1, 2
+	
 	add a0, a0, t0
 	add a0, a0, t1
 ###################################	
@@ -133,7 +137,7 @@ PERCORRE_TILES:
 	mul t5, t5, t2
 	add s0, s0, t5
 ####################################
-	lw t0, 0(a0)
+	lb t0, 0(a0)
 	
 	li t2, 0
 	beq t0, t2, BLACK_TILE
@@ -270,7 +274,7 @@ PRE_PRINT_TILE:
 	
 	call PRINT_TILE
 
-	addi a0, a0, 4		
+	addi a0, a0, 1		
 	addi t3, t3, 1
 
 	li t2, 20
@@ -278,7 +282,7 @@ PRE_PRINT_TILE:
 	
 	li t3, 0
 	addi t4, t4, 1
-	addi a0, a0, 100		#volta os tiles para a linha abaixo
+	addi a0, a0, 25		#volta os tiles para a linha abaixo
 	li t2, 15
 	
 	bne t2, t4, PERCORRE_TILES
@@ -293,7 +297,7 @@ PRE_PRINT_TILE_INVERSO:
 	addi s0, s0, 15
 	call PRINT_TILE_INVERSO
 	
-	addi a0, a0, 4		
+	addi a0, a0, 1		
 	addi t3, t3, 1
 	
 	li t2, 20
@@ -301,7 +305,7 @@ PRE_PRINT_TILE_INVERSO:
 	
 	li t3, 0
 	addi t4, t4, 1
-	addi a0, a0, 100		#volta os tiles para a linha abaixo
+	addi a0, a0, 25		#volta os tiles para a linha abaixo
 	li t2, 15
 	bne t2, t4, PERCORRE_TILES
 	
@@ -333,7 +337,7 @@ PRINT_BLACK_TILE:
 	
 ### Fim de printar o tile ###
 
-	addi a0, a0, 4		
+	addi a0, a0, 1		
 	addi t3, t3, 1
 
 	li t2, 20
@@ -341,7 +345,7 @@ PRINT_BLACK_TILE:
 	
 	li t3, 0
 	addi t4, t4, 1
-	addi a0, a0, 100		#volta os tiles para a linha abaixo
+	addi a0, a0, 25		#volta os tiles para a linha abaixo
 	li t2, 15
 	
 	bne t2, t4, PERCORRE_TILES

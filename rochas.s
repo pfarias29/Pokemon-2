@@ -17,7 +17,7 @@
 ###   tamanho: 45x40    ###
 ###   limite: 20x15     ###
 ###########################
-tiles_rochas: .word 
+tiles_rochas: .byte 
 				-1,5,5,5,5,5,5,5,1,-1,5,5,5,5,5,5,5,5,5,1,
 	     	    -1,5,5,4,4,4,4,4,1,-1,2,4,2,2,2,4,4,2,2,1,
 	     	    -1,4,4,5,4,5,4,4,1,-1,2,4,2,4,4,4,4,2,2,1,
@@ -69,7 +69,7 @@ PERCORRE_TILES_ROCHA:
 	add s0, s0, t5
 ####################################
  
- 	lw t0, 0(a0)
+ 	lb t0, 0(a0)
 	
 	li t2, 0
 	beq t0, t2, BLACK_TILE_ROCHA
@@ -101,7 +101,7 @@ PRE_PRINT_TILE_ROCHA:
 	
 	call PRINT_TILE
 
-	addi a0, a0, 4		
+	addi a0, a0, 1		
 	addi t3, t3, 1
 
 	li t2, 20
@@ -123,7 +123,7 @@ PRE_PRINT_TILE_INVERSO_ROCHA:
 	addi s0, s0, 15
 	call PRINT_TILE_INVERSO
 	
-	addi a0, a0, 4		
+	addi a0, a0, 1		
 	addi t3, t3, 1
 	
 	li t2, 20
@@ -161,7 +161,7 @@ PRINT_BLACK_TILE_ROCHA:
 	
 ### Fim de printar o tile ###
 
-	addi a0, a0, 4		
+	addi a0, a0, 1		
 	addi t3, t3, 1
 
 	li t2, 20
@@ -232,17 +232,17 @@ CALCULA_POSICAO_PERSONAGEM_ROCHA:
 	mv a1, s6			#s6 ficará salvo a sprite do ash
 	addi a1, a1, 8
 	
-	bnez s8, CONTRARIO
+	bnez s8, CONTRARIO_ROCHA
 	call PRINT_TILE
 	j KEY2_ROCHA
-
+CONTRARIO_ROCHA:
 	call PRINT_TILE_INVERSO
 			
 KEY2_ROCHA:
 	li t1,0xFF200000		# carrega o endereço de controle do KDMMIO
 	lw t0,0(t1)			# Le bit de Controle Teclado
 	andi t0,t0,0x0001		# mascara o bit menos significativo
-   	beq t0,zero,FIM   	   	# Se não há tecla pressionada então vai para FIM
+   	beq t0,zero,FIM_ROCHA   	   	# Se não há tecla pressionada então vai para FIM
   	lw t2,4(t1)  			# le o valor da tecla tecla
 	call MOVE_TELA_ROCHA
 FIM_ROCHA:	
@@ -333,7 +333,14 @@ BAIXO2_ROCHA:
 	addi t0, t0, 1	
 	
 	li t2, 15
-	bge t0, t2, SAI_ROCHA
+	bge t0, t2, TALVEZ_SAI_ROCHA
+	
+	sw t0, 4(a0)
+	j INICIO_ROCHA
+	
+TALVEZ_SAI_ROCHA:
+	li t2, 10
+	beq t1, t2, SAI_ROCHA
 	
 	sw t0, 4(a0)
 	j INICIO_ROCHA
