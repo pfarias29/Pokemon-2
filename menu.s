@@ -90,7 +90,7 @@ SETUP:
     la a0, msg2
     call PRINT_STR
 
-    #call PLAY_SONG
+    call PLAY_SONG
 
 # INICIAR O JOGO
     la a0, msg1
@@ -106,7 +106,6 @@ PRINT_STR:
 
 	li a1, 0
 	li a2, 144
-	# li a3, 0x00A0
 	li a3, 0x002D
 	li a4, 0
 	ecall

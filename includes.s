@@ -79,4 +79,4 @@
 ### Pokemon do jogador ###
 ##########################
 pokemon_jogador: .byte 0
-inventario_jogador: .byte 1,2,3,0,0,0,0,0,0
+inventario_jogador: .byte 1,0,0,0,0,0,0,0,0
