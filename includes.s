@@ -49,6 +49,8 @@
 .include "./sprites/diagonal_big_rocha.s"
 .include "./sprites/lateral_big_rocha.s"
 .include "./sprites/pedra.s"
+.include "./sprites/chave.s"
+.include "./sprites/pocao.s"
 
 ##########################
 ### Sprites personagem ###
@@ -61,6 +63,8 @@
 .include "./sprites/ash_dir.s"
 .include "./sprites/ash_dir_dir.s"
 .include "./sprites/ash_dir_esq.s"
+.include "./sprites/ash_esq_dir.s"
+.include "./sprites/ash_esq_esq.s"
 .include "./sprites/ash_parado.s"
 
 ##########################
@@ -68,3 +72,11 @@
 ##########################
 .include "./casa.s"
 .include "./rochas.s"
+.include "./dialogo.s"
+
+
+##########################
+### Pokemon do jogador ###
+##########################
+pokemon_jogador: .byte 0
+inventario_jogador: .byte 1,0,0,0,0,0,0,0,0

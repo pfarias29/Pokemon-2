@@ -106,7 +106,7 @@ PRINT_STR:
 
 	li a1, 0
 	li a2, 144
-	li a3, 0x00A0
+	li a3, 0x002D
 	li a4, 0
 	ecall
 	ret		
@@ -228,8 +228,6 @@ NOTAS: 74,1764,74,215,74,4,74,215,81,4,81,367,74,73,74,215,74,4,74,215,82,4,82,3
 .include "./sprites/squirtle.s"
 
 .include "./sprites/pokebola.s"
-.include "./sprites/pokebola_abrindo.s"
-.include "./sprites/pokebola_aberta.s"
 
 .include "./SYSTEMv21.s"
 .include "./palletTown.s"
