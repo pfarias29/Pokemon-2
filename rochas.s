@@ -38,7 +38,7 @@ tiles_rochas: .byte
 posicao_inicial_personagem: .word 11,14
 
 ### Informações sobre onde estarão os pokemons para lutar: x, y, tipo de pokemon ###
-inimigos: .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+inimigos: .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
 .text
 ROCHAS:	
@@ -69,7 +69,7 @@ LOOP_PREENCHE_INIMIGOS:
 	addi t3, t3, 1
 	addi a2, a2, 3
 	
-	li t2, 3
+	li t2, 8
 	bne t2, t3, LOOP_PREENCHE_INIMIGOS
 ### Quando terminar, o vetor de inimigos estará preenchido com as informações dos inimigos ###
 
@@ -402,7 +402,7 @@ LOOP_CHECA_INIMIGOS:
 	
 	addi t3, t3, 1
 	addi a2, a2, 3
-	li t2, 4
+	li t2, 8
 	bne t2, t3, LOOP_CHECA_INIMIGOS
 	j INICIO_ROCHA
 	
@@ -412,7 +412,7 @@ TALVEZ_INIMIGO:
 	beq t0, s2, LUTA_INIMIGO
 	
 	addi t3, t3, 1
-	addi a2, a2, 3
+	addi a2, a2, 2
 	li t2, 4
 	bne t2, t3, LOOP_CHECA_INIMIGOS
 	j INICIO_ROCHA

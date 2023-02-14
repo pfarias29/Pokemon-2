@@ -41,7 +41,7 @@ SETUP:
 
 # POKEMONS
     la a0, squirtle
-    li a1, 160
+    li a1, 155
     li a2, 96
     li a3, 0
     call PRINT
@@ -99,7 +99,7 @@ SETUP:
     la a0, msg2
     call PRINT_STR
 
-    call PLAY_SONG
+    #bcall PLAY_SONG
 
 # INICIAR O JOGO
     la a0, msg1
@@ -119,7 +119,6 @@ PRINT_STR:
 	li a4, 0
 	ecall
 	ret		
-
 PRINT:
     li t0, 0xFF0
     add t0, t0, a3
@@ -238,8 +237,6 @@ NOTAS: 74,1764,74,215,74,4,74,215,81,4,81,367,74,73,74,215,74,4,74,215,82,4,82,3
 .include "./sprites/squirtle.s"
 
 .include "./sprites/pokebola.s"
-
-
 
 .include "./SYSTEMv21.s"
 

@@ -322,12 +322,21 @@ LOOP_INVENTARIO:
     lb t0, 0(a6)
 
     li t4, 1
-    beq t4, t0, PRINT_POCAO
+    beq t4, t0, PRINT_CHARMANDER_INVENTORIO
 
     li t4, 2
-    beq t4, t0, PRINT_POKEBOLA
+    beq t4, t0, PRINT_BULBASAUR_INVENTORIO
 
     li t4, 3
+    beq t4, t0, PRINT_SQUIRTLE_INVENTORIO
+    
+    li t4, 4
+    beq t4, t0, PRINT_POCAO
+
+    li t4, 5
+    beq t4, t0, PRINT_POKEBOLA
+
+    li t4, 6
     beq t4, t0, PRINT_CHAVE
 
 RETORNA:
@@ -336,27 +345,114 @@ RETORNA:
     j LOOP_INVENTARIO
 
 PRINT_POCAO:
+	li t0, 3
+	div t2, s10, t0		#linha
+	rem t0, s10, t0 	#coluna
+	
+	li t3, 16
+	mul t0, t3, t0
+	mul t2, t2, t0
+
     la a0, pocao
     li a1, 128
+    add a1, a1, t0
     li a2, 96
+    add a2, a2, t2 
     li a3, 0
     call PRINT_D
 
     j RETORNA
 
 PRINT_POKEBOLA:
+    li t0, 3
+	div t2, s10, t0		#linha
+	rem t0, s10, t0 	#coluna
+	
+	li t3, 16
+	mul t0, t3, t0
+	mul t2, t2, t0
+
     la a0, pokebola
-    li a1, 144
+    li a1, 128
+    add a1, a1, t0
     li a2, 96
+    add a2, a2, t2 
     li a3, 0
     call PRINT_D
 
     j RETORNA
 
 PRINT_CHAVE:
+    	li t0, 3
+	div t2, s10, t0		#linha
+	rem t0, s10, t0 	#coluna
+	
+	li t3, 16
+	mul t0, t3, t0
+	mul t2, t2, t0
+
     la a0, chave
-    li a1, 160
+    li a1, 128
+    add a1, a1, t0
     li a2, 96
+    add a2, a2, t2 
+    li a3, 0
+    call PRINT_D
+
+    j RETORNA
+    
+PRINT_CHARMANDER_INVENTORIO:
+    	li t0, 3
+	div t2, s10, t0		#linha
+	rem t0, s10, t0 	#coluna
+	
+	li t3, 16
+	mul t0, t3, t0
+	mul t2, t2, t3
+
+    la a0, charmander
+    li a1, 128
+    add a1, a1, t0
+    li a2, 96
+    add a2, a2, t2 
+    li a3, 0
+    call PRINT_D
+
+    j RETORNA
+    
+PRINT_BULBASAUR_INVENTORIO:
+    	li t0, 3
+	div t2, s10, t0		#linha
+	rem t0, s10, t0 	#coluna
+	
+	li t3, 16
+	mul t0, t3, t0
+	mul t2, t2, t3
+
+    la a0, bulbasaur
+    li a1, 128
+    add a1, a1, t0
+    li a2, 96
+    add a2, a2, t2 
+    li a3, 0
+    call PRINT_D
+
+    j RETORNA
+    
+PRINT_SQUIRTLE_INVENTORIO:
+    	li t0, 3
+	div t2, s10, t0		#linha
+	rem t0, s10, t0 	#coluna
+	
+	li t3, 16
+	mul t0, t3, t0
+	mul t2, t2, t3
+
+    la a0, squirtle
+    li a1, 128
+    add a1, a1, t0
+    li a2, 96
+    add a2, a2, t2 
     li a3, 0
     call PRINT_D
 
