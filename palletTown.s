@@ -836,20 +836,33 @@ VAI_ROCHA:
 TALVEZ_PARE_HORIZONTAL_PT:
 	li t3, 22
 	lb t5, 0(a1)
-	bne t3, t5, KEY2 
+	bne t3, t5, TALVEZ_PARE_HORIZONTAL_PT1 
 	
 	sw t0, 0(a0)
+	j COMECO
 	
+TALVEZ_PARE_HORIZONTAL_PT1:
+	li t3, 5
+	bne t3, t5, KEY2
+	
+	sw t0, 0(a0)
 	j COMECO
 	
 TALVEZ_PARE_VERTICAL_PT:
 	li t3, 22
 	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_VERTICAL_PT1
+	
+	sw t0, 4(a0)
+	j COMECO
+	
+TALVEZ_PARE_VERTICAL_PT1:
+	li t3, 5
 	bne t3, t5, KEY2
 	
 	sw t0, 4(a0)
-	
 	j COMECO
+	
 
 .data
 .include "./includes.s"	
