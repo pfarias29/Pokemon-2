@@ -244,7 +244,7 @@ DERROTA:
     	la a0, vitorias_derrotas
     	lb t0, 1(a0)
 	li t2, 3
-	#beq t2, t0, ROCHAS
+	beq t2, t0, ROCHAS
 	
     	j LUTA   			
 

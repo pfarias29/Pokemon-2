@@ -673,6 +673,27 @@ DIR2:
 	la a0, posicao_inicial
 	lw t0, 0(a0)
 	addi t0, t0, 1	
+### limite de paredes ###
+	lw t2, 4(a0)
+	
+	la a1, posicao_personagem
+	lw t4, 0(a1)
+	lw t5, 4(a1)
+	
+	add t4, t4, t0
+	add t5, t5, t2
+
+	li t3, 45
+	mul t5, t5, t3
+	
+	la a1, tiles
+	add a1, a1, t4
+	add a1, a1, t5
+	
+	li t3, 21
+	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_HORIZONTAL_PT
+########################	
 	sw t0, 0(a0)
 	j COMECO
 	
@@ -689,7 +710,28 @@ ESQ1:
 ESQ2:
 	la a0, posicao_inicial
 	lw t0, 0(a0)
-	addi t0, t0, -1	
+	addi t0, t0, -1
+### limite de paredes ###	
+	lw t2, 4(a0)
+	
+	la a1, posicao_personagem
+	lw t4, 0(a1)
+	lw t5, 4(a1)
+	
+	add t4, t4, t0
+	add t5, t5, t2
+
+	li t3, 45
+	mul t5, t5, t3
+	
+	la a1, tiles
+	add a1, a1, t4
+	add a1, a1, t5
+	
+	li t3, 21
+	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_HORIZONTAL_PT		
+########################	
 	sw t0, 0(a0)
 	j COMECO
 	
@@ -713,6 +755,27 @@ CIMA2:
 	
 	li t2, 9
 	beq t2, t0 TALVEZ_SAI
+### limite de paredes ###	
+	lw t2, 0(a0)
+	
+	la a1, posicao_personagem
+	lw t4, 0(a1)
+	lw t5, 4(a1)	
+	
+	add t4, t4, t2
+	add t5, t5, t0
+
+	li t3, 45
+	mul t5, t5, t3
+	
+	la a1, tiles
+	add a1, a1, t4
+	add a1, a1, t5
+	
+	li t3, 21
+	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_VERTICAL_PT
+########################
 	
 	sw t0, 4(a0)
 	j COMECO
@@ -740,6 +803,27 @@ BAIXO2:
 	la a0, posicao_inicial
 	lw t0, 4(a0)
 	addi t0, t0, 1	
+### limite de paredes ###	
+	lw t2, 0(a0)
+	
+	la a1, posicao_personagem
+	lw t4, 0(a1)
+	lw t5, 4(a1)
+		
+	add t4, t4, t2
+	add t5, t5, t0
+
+	li t3, 45
+	mul t5, t5, t3
+	
+	la a1, tiles
+	add a1, a1, t4
+	add a1, a1, t5
+	
+	li t3, 21
+	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_VERTICAL_PT	
+########################	
 	sw t0, 4(a0)
 	j COMECO
 	
@@ -748,6 +832,24 @@ ENTRA_CASA:
 
 VAI_ROCHA:
 	j ROCHAS
+	
+TALVEZ_PARE_HORIZONTAL_PT:
+	li t3, 22
+	lb t5, 0(a1)
+	bne t3, t5, KEY2 
+	
+	sw t0, 0(a0)
+	
+	j COMECO
+	
+TALVEZ_PARE_VERTICAL_PT:
+	li t3, 22
+	lb t5, 0(a1)
+	bne t3, t5, KEY2
+	
+	sw t0, 4(a0)
+	
+	j COMECO
 
 .data
 .include "./includes.s"	
