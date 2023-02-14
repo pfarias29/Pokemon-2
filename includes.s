@@ -73,6 +73,7 @@
 .include "./casa.s"
 .include "./rochas.s"
 .include "./dialogo.s"
+.include "./luta.s"
 
 
 ##########################

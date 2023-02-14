@@ -32,18 +32,13 @@ tiles_rochas: .byte
 	     	    -1,2,4,4,4,2,2,2,2,2,2,2,2,2,2,3,-3,-3,2,1,
 	    	    -1,2,2,4,2,4,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
 	    	    -1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
-	     	    -1,5,5,5,5,5,5,5,5,2,2,2,5,5,5,5,5,5,5,1,
-	     	    -1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
-	     	    -1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
-	     	    -1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
-	      	    -1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
-	     	    -1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1
+	     	    -1,5,5,5,5,5,5,5,5,2,2,2,5,5,5,5,5,5,5,1
 	     
 	     
-posicao_inicial_personagem: .word 10,14
+posicao_inicial_personagem: .word 11,14
 
 ### Informações sobre onde estarão os pokemons para lutar: x, y, tipo de pokemon ###
-inimigos: .byte 0,0,0,0,0,0,0,0,0,0,0,0
+inimigos: .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
 .text
 ROCHAS:	
@@ -53,7 +48,6 @@ ROCHAS:
 
 PREENCHE_INIMIGOS:
 	li t3, 0
-
 	la a2, inimigos
 	
 LOOP_PREENCHE_INIMIGOS:
@@ -124,7 +118,7 @@ PERCORRE_TILES_ROCHA:
 	beq t0, t2, AREIA
 	
 	li t2, 5
-	beq t0, t2, PEDRA
+	beq t0, t2, PEDRAS
 	
 PRE_PRINT_TILE_ROCHA:
 	li t0, 0
@@ -235,7 +229,7 @@ AREIA:
 	addi a1, a1, 8
 	j PRE_PRINT_TILE_ROCHA
 	
-PEDRA:
+PEDRAS:
 	la a1, pedra
 	addi a1, a1, 8
 	j PRE_PRINT_TILE_ROCHA
@@ -243,7 +237,7 @@ PEDRA:
 CALCULA_POSICAO_PERSONAGEM_ROCHA:
 	la t2, posicao_inicial_personagem
 	lw t0, 0(t2)
-	lw t1, 4(t2)
+	lw t3, 4(t2)
 	
 	li s0, 0xff0
 	slli s0, s0, 20
@@ -252,7 +246,7 @@ CALCULA_POSICAO_PERSONAGEM_ROCHA:
 	mul t5, t0, t2
 	add s0, s0, t5
 	
-	mul t5, t1, t2
+	mul t5, t3, t2
 	li t2, 320
 	mul t5, t5, t2
 	add s0, s0, t5
@@ -378,7 +372,13 @@ BAIXO2_ROCHA:
 	j CHECA_INIMIGOS
 	
 TALVEZ_SAI_ROCHA:
+	li t2, 9
+	beq t1, t2, SAI_ROCHA
+	
 	li t2, 10
+	beq t1, t2, SAI_ROCHA
+	
+	li t2, 11
 	beq t1, t2, SAI_ROCHA
 	
 	sw t0, 4(a0)
@@ -417,13 +417,10 @@ TALVEZ_INIMIGO:
 	bne t2, t3, LOOP_CHECA_INIMIGOS
 	j INICIO_ROCHA
 	
-LUTA_INIMIGO:
-	li a7, 1
-	li a0, -1
-	ecall
-	
-	li a7, 10
-	ecall
+LUTA_INIMIGO:	
+	lb s11, 2(a2)
+
+	j LUTA
 	
 	 
 

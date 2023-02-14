@@ -4,7 +4,7 @@
 DIALOGO:
     li a0, 0x00000000
     li t0, 0        #limite de colunas
-    li t1, 0        #limite de linhas
+    li t3, 0        #limite de linhas
 
     li s0, 0xff0
     slli s0, s0, 20
@@ -65,10 +65,10 @@ DISPLAY_PRETO:
     bne t2, t0, DISPLAY_PRETO
 
     li t0, 0
-    addi t1, t1, 1
+    addi t3, t3, 1
     
     li t2, 240
-    bne t2, t1, DISPLAY_PRETO 
+    bne t2, t3, DISPLAY_PRETO 
     ret
 
 
@@ -178,6 +178,7 @@ POKEMON_CHARMANDER:
 
     # Cola o valor do pokemon
     la a0, pokemon_jogador
+    li t2, 1
     sb t2, 0(a0)
 
     la a0, charmander
@@ -214,6 +215,7 @@ POKEMON_BULBASAUR:
 
     # Cola o valor do pokemon
     la a0, pokemon_jogador
+    li t2, 2
     sb t2, 0(a0)
 
     la a0, bulbasaur
@@ -250,6 +252,7 @@ POKEMON_SQUIRTLE:
 
     # Cola o valor do pokemon
     la a0, pokemon_jogador
+    li t2, 3
     sb t2, 0(a0)
 
     

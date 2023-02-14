@@ -7,7 +7,7 @@
 SETUP:
     li a0, 0x00000000
     li t0, 0        #limite de colunas
-    li t1, 0        #limite de linhas
+    li t3, 0        #limite de linhas
 
     li s0, 0xff0
     slli s0, s0, 20
@@ -99,7 +99,7 @@ SETUP:
     la a0, msg2
     call PRINT_STR
 
-    #call PLAY_SONG
+	call PLAY_SONG
 
 # INICIAR O JOGO
     la a0, msg1
