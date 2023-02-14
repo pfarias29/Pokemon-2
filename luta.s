@@ -181,7 +181,7 @@ EMPATE:
     	li t1, 100
     	call PRINT_D_STR
     	
-    	li a0, 2000
+    	li a0, 750
     	call Sleep
     	
     	j LUTA
@@ -206,10 +206,14 @@ VITORIA:
     	addi t0, t0, 1
     	sb t0, 0(a0)
     	
-    	li a0, 2000
+    	li a0, 750
     	call Sleep
     	
 ### Colocar aqui caso o jogador tenha vencido 3 vezes ###
+	la a0, vitorias_derrotas
+	lb t0, 0(a0)
+	li t2, 3
+	#beq t2, t0, PEGA_POKEMON
     	
     	j LUTA
     	
@@ -229,15 +233,19 @@ DERROTA:
     	call PRINT_D_STR
     	
     	la a0, vitorias_derrotas
-    	lb t0, 0(a0)
-    	addi t0, t0, -1
-    	sb t0, 0(a0)
+    	lb t0, 1(a0)
+    	addi t0, t0, 1
+    	sb t0, 1(a0)
     	
-    	li a0, 2000
+    	li a0, 750
     	call Sleep
     	
 ### Colocar aqui caso o jogador tenha perdido 3 vezes ###
-    	
+    	la a0, vitorias_derrotas
+    	lb t0, 1(a0)
+	li t2, 3
+	#beq t2, t0, VAI_ROCHA
+	
     	j LUTA   			
 	
 

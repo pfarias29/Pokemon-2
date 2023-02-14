@@ -99,7 +99,7 @@ SETUP:
     la a0, msg2
     call PRINT_STR
 
-	call PLAY_SONG
+    call PLAY_SONG
 
 # INICIAR O JOGO
     la a0, msg1

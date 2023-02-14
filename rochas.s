@@ -69,7 +69,7 @@ LOOP_PREENCHE_INIMIGOS:
 	addi t3, t3, 1
 	addi a2, a2, 3
 	
-	li t2, 4
+	li t2, 3
 	bne t2, t3, LOOP_PREENCHE_INIMIGOS
 ### Quando terminar, o vetor de inimigos estará preenchido com as informações dos inimigos ###
 
@@ -419,6 +419,10 @@ TALVEZ_INIMIGO:
 	
 LUTA_INIMIGO:	
 	lb s11, 2(a2)
+	
+	sb zero, 0(a2)
+	sb zero, 1(a2)
+	sb zero, 2(a2)
 
 	j LUTA
 	
