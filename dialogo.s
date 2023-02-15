@@ -370,7 +370,7 @@ PRINT_POCAO:
 	
 	li t3, 16
 	mul t0, t3, t0
-	mul t2, t2, t0
+	mul t2, t2, t3
 
     la a0, pocao
     li a1, 128
@@ -389,7 +389,7 @@ PRINT_POKEBOLA:
 	
 	li t3, 16
 	mul t0, t3, t0
-	mul t2, t2, t0
+	mul t2, t2, t3
 
     la a0, pokebola
     li a1, 128
@@ -408,7 +408,7 @@ PRINT_CHAVE:
 	
 	li t3, 16
 	mul t0, t3, t0
-	mul t2, t2, t0
+	mul t2, t2, t3
 
     la a0, chave
     li a1, 128
@@ -581,6 +581,11 @@ RETORNA_MAPA:
 	
 
 RETORNA_CASA:
+	la a0, inventario_jogador
+	li t0, 6
+	sb t0, 8(a0)
+
+
     j CASA
 RETORNA_ROCHAS:
 	j ROCHAS
