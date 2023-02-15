@@ -287,7 +287,7 @@ MOVE_TELA_ROCHA:
 	beq t0, t2, MOVE_BAIXO_ROCHA
 	
 	li t0, 'i'
-	li s9, 2			#s9 = guarda o mapa que estava antes de abrir o inventário
+	li s5, 2			#s9 = guarda o mapa que estava antes de abrir o inventário
 	beq t0, t2, ABRE_INVENTARIO
 	
 	ret

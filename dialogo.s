@@ -556,13 +556,13 @@ j KEY_INVENTARIO
 
 RETORNA_MAPA:
 	li t0, 1
-	beq t0, s9, RETORNA_CASA
+	beq t0, s5, RETORNA_CASA
 	
 	li t0, 2
-	beq t0, s9, RETORNA_ROCHAS
+	beq t0, s5, RETORNA_ROCHAS
 	
 	li t0, 3
-	beq t0, s9, RETORNA_PALLET_TOWN
+	beq t0, s5, RETORNA_PALLET_TOWN
 	
 
 RETORNA_CASA:
