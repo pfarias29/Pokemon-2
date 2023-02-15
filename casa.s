@@ -199,23 +199,43 @@ MOVE_PERSONAGEM:
 	
 	li t0, 's'
 	beq t0, t2, TROCA_BAIXO
+
+	li t0, 'p'
+	beq t0, t2, DIALOGO
+
+	li t0, 'i'
+	li s5, 1		#s9 = guarda o mapa que estava antes de abrir o inventário
+	beq t0, t2, ABRE_INVENTARIO
 	
 	ret
 	
 TROCA_ESQ:
-	li s8, 1
+	li s8, 0
 	beqz s7, ESQ0
-	la s6, ash_dir_dir
+	la s6, ash_esq_dir
 	li s7, 0
 	j ESQ
 ESQ0:	
-	la s6, ash_dir_esq
+	la s6, ash_esq_esq
 	li s7, 1
 		
 ESQ:
 	la a0, posicao_inicial_casa
 	lw t1, 0(a0)
 	addi t1, t1, -1
+	
+	lw t2, 4(a0)
+
+	li t3, 20
+	mul t2, t2, t3
+	
+	la a1, tiles_casa
+	add a1, a1, t1
+	add a1, a1, t2
+	
+	lb t5, 0(a1)
+	bnez t5, TALVEZ_PARE_HORIZONTAL_CASA
+	
 	sw t1, 0(a0)
 
 	j INICIO
@@ -234,6 +254,19 @@ DIR:
 	la a0, posicao_inicial_casa
 	lw t1, 0(a0)
 	addi t1, t1, 1
+	
+	lw t2, 4(a0)
+
+	li t3, 20
+	mul t2, t2, t3
+	
+	la a1, tiles_casa
+	add a1, a1, t1
+	add a1, a1, t2
+	
+	lb t5, 0(a1)
+	bnez t5, TALVEZ_PARE_HORIZONTAL_CASA
+	
 	sw t1, 0(a0)
 	
 	j INICIO
@@ -253,6 +286,19 @@ CIMA:
 	la a0, posicao_inicial_casa
 	lw t1, 4(a0)
 	addi t1, t1, -1
+	
+	lw t2, 0(a0)
+
+	li t3, 20
+	mul t3, t1, t3
+	
+	la a1, tiles_casa
+	add a1, a1, t3
+	add a1, a1, t2
+	
+	lb t5, 0(a1)
+	bnez t5, TALVEZ_PARE_VERTICAL_CASA
+	
 	sw t1, 4(a0)
 	
 	j INICIO
@@ -274,12 +320,20 @@ BAIXO:
 	lw t1, 4(a0)
 	addi t1, t1, 1
 	
-	mul t2, t2, t1
-	li t5, 140
-	beq t5, t2, SAI_CASA
+	li t5, 14
+	beq t5, t1, TALVEZ_SAI_CASA
 	
-	li t5, 126
-	beq t5, t2, SAI_CASA
+	lw t2, 0(a0)
+
+	li t3, 20
+	mul t3, t1, t3
+	
+	la a1, tiles_casa
+	add a1, a1, t3
+	add a1, a1, t2
+	
+	lb t5, 0(a1)
+	bnez t5, TALVEZ_PARE_VERTICAL_CASA
 	
 	sw t1, 4(a0)
 	
@@ -338,7 +392,59 @@ CALCULA_POSICAO_PERSONAGEM_CASA:
 CONTRARIO_CASA:
 	call PRINT_TILE_INVERSO
 	j KEY2_CASA
+
+TALVEZ_SAI_CASA:
+	li t5, 9
+	beq t5, t2, SAI_CASA
 	
+	li t5, 10
+	beq t5, t2, SAI_CASA
+	
+	lw t2, 0(a0)
+
+	li t3, 20
+	mul t3, t1, t3
+	
+	la a1, tiles_casa
+	add a1, a1, t3
+	add a1, a1, t2
+	
+	lb t5, 0(a1)
+	bnez t5, TALVEZ_PARE_VERTICAL_CASA
+	
+	sw t1, 4(a0)
+	
+	j INICIO
+							
 SAI_CASA:
 	j PALLET_TOWN
 	
+TALVEZ_PARE_HORIZONTAL_CASA:
+	li t3, 3
+	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_HORIZONTAL_CASA1
+	
+	sw t1, 0(a0)	
+	j INICIO	
+	
+TALVEZ_PARE_HORIZONTAL_CASA1:
+	li t3, -3
+	bne t3, t5, KEY2_CASA  
+	
+	sw t1, 0(a0)	
+	j INICIO
+	
+TALVEZ_PARE_VERTICAL_CASA:
+	li t3, 3
+	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_VERTICAL_CASA1
+	
+	sw t1, 4(a0)	
+	j INICIO
+	
+TALVEZ_PARE_VERTICAL_CASA1:
+	li t3, -3
+	bne t3, t5, KEY2_CASA 
+	
+	sw t1, 4(a0)	
+	j INICIO
