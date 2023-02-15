@@ -4,9 +4,9 @@
 ###        MAPAS       ###
 ##########################
 .include "./dialogo.s"
+.include "./rochas.s"
 .include "./casa.s"
 .include "./luta.s"
-.include "./rochas.s"
 
 .data
 ##########################
@@ -82,4 +82,4 @@
 ### Pokemon do jogador ###
 ##########################
 pokemon_jogador: .byte 0
-inventario_jogador: .byte 4,0,0,0,0,0,0,0,0
+inventario_jogador: .byte 4,0,0,0,0,0,4,0,0
