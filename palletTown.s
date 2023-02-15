@@ -92,10 +92,11 @@ tiles: .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 posicao_inicial: .word 10,10
 posicao_personagem: .word 7,8
 
+
 .text
 PALLET_TOWN:	
 	li s7, 0			#s7 define o sprite do personagem andando
-	la s6, ash_parado	#s6 define o sprite do personagem
+	la s6, ash_parado		#s6 define o sprite do personagem
 	li s8, 0			#s8 define se vai ser usada a imagem ao contrário
 
 COMECO:
@@ -630,7 +631,7 @@ CONTRARIO:
 			
 KEY2:
 	li t1,0xFF200000		# carrega o endereço de controle do KDMMIO
-	lw t0,0(t1)			# Le bit de Controle Teclado
+	lw t0,0(t1)				# Le bit de Controle Teclado
 	andi t0,t0,0x0001		# mascara o bit menos significativo
    	beq t0,zero,FIM   	   	# Se não há tecla pressionada então vai para FIM
   	lw t2,4(t1)  			# le o valor da tecla tecla
@@ -651,6 +652,10 @@ MOVE_TELA:
 	li t0, 's'
 	beq t0, t2, MOVE_BAIXO
 	
+	li t0, 'i'
+	li s5, 3		#s9 = guarda o mapa que estava antes de abrir o inventário
+	beq t0, t2, ABRE_INVENTARIO
+	
 	ret
 
 
@@ -668,23 +673,65 @@ DIR2:
 	la a0, posicao_inicial
 	lw t0, 0(a0)
 	addi t0, t0, 1	
+### limite de paredes ###
+	lw t2, 4(a0)
+	
+	la a1, posicao_personagem
+	lw t4, 0(a1)
+	lw t5, 4(a1)
+	
+	add t4, t4, t0
+	add t5, t5, t2
+
+	li t3, 45
+	mul t5, t5, t3
+	
+	la a1, tiles
+	add a1, a1, t4
+	add a1, a1, t5
+	
+	li t3, 21
+	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_HORIZONTAL_PT
+########################	
 	sw t0, 0(a0)
 	j COMECO
 	
 MOVE_ESQUERDA:
-	li s8, 1
+	li s8, 0
 	beqz s7, ESQ1
-	la s6, ash_dir_dir
+	la s6, ash_esq_dir
 	li s7, 0
 	j ESQ2
 	
 ESQ1:
-	la s6, ash_dir_esq
+	la s6, ash_esq_esq
 	li s7, 1
 ESQ2:
 	la a0, posicao_inicial
 	lw t0, 0(a0)
-	addi t0, t0, -1	
+	addi t0, t0, -1
+### limite de paredes ###	
+	lw t2, 4(a0)
+	
+	la a1, posicao_personagem
+	lw t4, 0(a1)
+	lw t5, 4(a1)
+	
+	add t4, t4, t0
+	add t5, t5, t2
+
+	li t3, 45
+	mul t5, t5, t3
+	
+	la a1, tiles
+	add a1, a1, t4
+	add a1, a1, t5
+	
+	li t3, 21
+	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_HORIZONTAL_PT		
+########################	
 	sw t0, 0(a0)
 	j COMECO
 	
@@ -708,6 +755,27 @@ CIMA2:
 	
 	li t2, 9
 	beq t2, t0 TALVEZ_SAI
+### limite de paredes ###	
+	lw t2, 0(a0)
+	
+	la a1, posicao_personagem
+	lw t4, 0(a1)
+	lw t5, 4(a1)	
+	
+	add t4, t4, t2
+	add t5, t5, t0
+
+	li t3, 45
+	mul t5, t5, t3
+	
+	la a1, tiles
+	add a1, a1, t4
+	add a1, a1, t5
+	
+	li t3, 21
+	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_VERTICAL_PT
+########################
 	
 	sw t0, 4(a0)
 	j COMECO
@@ -735,6 +803,27 @@ BAIXO2:
 	la a0, posicao_inicial
 	lw t0, 4(a0)
 	addi t0, t0, 1	
+### limite de paredes ###	
+	lw t2, 0(a0)
+	
+	la a1, posicao_personagem
+	lw t4, 0(a1)
+	lw t5, 4(a1)
+		
+	add t4, t4, t2
+	add t5, t5, t0
+
+	li t3, 45
+	mul t5, t5, t3
+	
+	la a1, tiles
+	add a1, a1, t4
+	add a1, a1, t5
+	
+	li t3, 21
+	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_VERTICAL_PT	
+########################	
 	sw t0, 4(a0)
 	j COMECO
 	
@@ -743,6 +832,37 @@ ENTRA_CASA:
 
 VAI_ROCHA:
 	j ROCHAS
+	
+TALVEZ_PARE_HORIZONTAL_PT:
+	li t3, 22
+	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_HORIZONTAL_PT1 
+	
+	sw t0, 0(a0)
+	j COMECO
+	
+TALVEZ_PARE_HORIZONTAL_PT1:
+	li t3, 5
+	bne t3, t5, KEY2
+	
+	sw t0, 0(a0)
+	j COMECO
+	
+TALVEZ_PARE_VERTICAL_PT:
+	li t3, 22
+	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_VERTICAL_PT1
+	
+	sw t0, 4(a0)
+	j COMECO
+	
+TALVEZ_PARE_VERTICAL_PT1:
+	li t3, 5
+	bne t3, t5, KEY2
+	
+	sw t0, 4(a0)
+	j COMECO
+	
 
 .data
-	.include "./includes.s"
+.include "./includes.s"	

@@ -5,6 +5,15 @@
 # a1 = altura
 # a2 = largura
 SETUP:
+    li a0, 0x00000000
+    li t0, 0        #limite de colunas
+    li t3, 0        #limite de linhas
+
+    li s0, 0xff0
+    slli s0, s0, 20
+
+    call DISPLAY_PRETO
+
     la a0, pokebola
     li a1, 16
     li a2, 16
@@ -32,7 +41,7 @@ SETUP:
 
 # POKEMONS
     la a0, squirtle
-    li a1, 160
+    li a1, 155
     li a2, 96
     li a3, 0
     call PRINT
@@ -90,7 +99,7 @@ SETUP:
     la a0, msg2
     call PRINT_STR
 
-    call PLAY_SONG
+    #bcall PLAY_SONG
 
 # INICIAR O JOGO
     la a0, msg1
@@ -106,11 +115,10 @@ PRINT_STR:
 
 	li a1, 0
 	li a2, 144
-	li a3, 0x00A0
+	li a3, 0x002D
 	li a4, 0
 	ecall
 	ret		
-
 PRINT:
     li t0, 0xFF0
     add t0, t0, a3
@@ -127,17 +135,17 @@ PRINT:
     mv t2, zero
     mv t3, zero
 
-    lw t4, 0(a0)
-    lw t5, 4(a0)
+    lb t4, 0(a0)
+    lb t5, 4(a0)
 
 PRINT_LINHA:
-    lw t6, 0(t1)
-    sw t6, 0(t0)
+    lb t6, 0(t1)
+    sb t6, 0(t0)
 
-    addi t0, t0, 4
-    addi t1, t1, 4
+    addi t0, t0, 1
+    addi t1, t1, 1
 
-    addi t3, t3, 4
+    addi t3, t3, 1
 
     blt t3, t4, PRINT_LINHA
 
@@ -155,7 +163,7 @@ PLAY_SONG:
     li a2, 3					# define o instrumento
 	li a3, 127					# define o volume
 	la s0, NUM				    # define o endereco do numero de notas
-	lw s1, 0(s0)				# le o numero de notas
+	lb s1, 0(s0)				# le o numero de notas
 	la s0, NOTAS				# define o endereco das notas
 	li t0, 0					# zera o contador de notas
 	li a2, 68					# define o instrumento
@@ -165,8 +173,8 @@ PLAY_SONG:
 
 LOOP: 
     beq t0, s1, FIM_SONG				# contador chegou no final? entao  va para FIM
-	lw a0, 0(s0)				# le o valor da nota
-	lw a1, 4(s0)				# le a duracao da nota
+	lb a0, 0(s0)				# le o valor da nota
+	lb a1, 4(s0)				# le a duracao da nota
 	li a7, 31					# define a chamada de syscall
 	ecall						# toca a not
 	mv a0, a1					# passa a duracao da nota para a pausa
@@ -188,10 +196,10 @@ FIM_SONG:
 
 KEY_MENU:
 	li t1,0xFF200000		# carrega o endereço de controle do KDMMIO
-	lw t0,0(t1)			    # Le bit de Controle Teclado
+	lb t0,0(t1)			    # Le bit de Controle Teclado
 	andi t0,t0,0x0001		# mascara o bit menos significativo
    	beq t0,zero,FIM_MENU   	# Se não há tecla pressionada então vai para FIM
-  	lw t2,4(t1)  			# le o valor da tecla tecla
+  	lb t2,4(t1)  			# le o valor da tecla tecla
     li t3, 's'		# carrega o valor da tecla S
    	beq t2,t3,PALLET_TOWN	# se a tecla for S então vai para mapa PalletTown
    	j FIM_MENU				# se não for S então volta para FIM_MENU
@@ -216,6 +224,7 @@ NOTAS: 74,1764,74,215,74,4,74,215,81,4,81,367,74,73,74,215,74,4,74,215,82,4,82,3
 ##########################
 ###        TILES       ###
 ##########################
+.include "./palletTown.s"
 
 .include "./alfabeto/a.s"
 .include "./alfabeto/c.s"
@@ -228,8 +237,7 @@ NOTAS: 74,1764,74,215,74,4,74,215,81,4,81,367,74,73,74,215,74,4,74,215,82,4,82,3
 .include "./sprites/squirtle.s"
 
 .include "./sprites/pokebola.s"
-.include "./sprites/pokebola_abrindo.s"
-.include "./sprites/pokebola_aberta.s"
 
 .include "./SYSTEMv21.s"
-.include "./palletTown.s"
+
+

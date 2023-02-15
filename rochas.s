@@ -18,7 +18,7 @@
 ###   limite: 20x15     ###
 ###########################
 tiles_rochas: .byte 
-				-1,5,5,5,5,5,5,5,1,-1,5,5,5,5,5,5,5,5,5,1,
+		    -1,5,5,5,5,5,5,5,1,-1,5,5,5,5,5,5,5,5,5,1,
 	     	    -1,5,5,4,4,4,4,4,1,-1,2,4,2,2,2,4,4,2,2,1,
 	     	    -1,4,4,5,4,5,4,4,1,-1,2,4,2,4,4,4,4,2,2,1,
 	     	    -1,4,5,4,4,4,4,4,1,-1,2,2,2,4,5,5,4,2,2,1,
@@ -31,22 +31,47 @@ tiles_rochas: .byte
 	    	    -1,2,2,4,4,4,4,2,2,2,2,2,2,2,2,1,1,-1,2,1,
 	     	    -1,2,4,4,4,2,2,2,2,2,2,2,2,2,2,3,-3,-3,2,1,
 	    	    -1,2,2,4,2,4,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
-	    	    -1,2,5,5,5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
-	     	    -1,5,4,5,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
-	     	    -1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
-	     	    -1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
-	     	    -1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
-	      	    -1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
-	     	    -1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1
+	    	    -1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,
+	     	    -1,5,5,5,5,5,5,5,5,2,2,2,5,5,5,5,5,5,5,1
 	     
 	     
 posicao_inicial_personagem: .word 10,14
+
+### Informações sobre onde estarão os pokemons para lutar: x, y, tipo de pokemon ###
+inimigos: .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
 .text
 ROCHAS:	
 	li s7, 0		#s7 define o sprite do personagem andando
 	la s6, ash_costas	#s6 define o sprite do personagem
 	li s8, 0		#s8 define se vai ser usada a imagem ao contrário
+
+PREENCHE_INIMIGOS:
+	li t3, 0
+	la a2, inimigos
+	
+LOOP_PREENCHE_INIMIGOS:
+	call Random
+	
+	li a1, 20
+	call __umodsi3
+	sb a0, 0(a2)
+	
+	li a1, 15
+	call __umodsi3
+	sb a0, 1(a2)
+	
+	li a1, 3
+	call __umodsi3
+	addi a0, a0, 1 		# o número tem que estar entre 1 e 3
+	sb a0, 2(a2)
+	
+	addi t3, t3, 1
+	addi a2, a2, 3
+	
+	li t2, 7
+	bne t2, t3, LOOP_PREENCHE_INIMIGOS
+### Quando terminar, o vetor de inimigos estará preenchido com as informações dos inimigos ###
 
 INICIO_ROCHA:
 	la a0, tiles_rochas
@@ -93,7 +118,7 @@ PERCORRE_TILES_ROCHA:
 	beq t0, t2, AREIA
 	
 	li t2, 5
-	beq t0, t2, PEDRA
+	beq t0, t2, PEDRAS
 	
 PRE_PRINT_TILE_ROCHA:
 	li t0, 0
@@ -204,7 +229,7 @@ AREIA:
 	addi a1, a1, 8
 	j PRE_PRINT_TILE_ROCHA
 	
-PEDRA:
+PEDRAS:
 	la a1, pedra
 	addi a1, a1, 8
 	j PRE_PRINT_TILE_ROCHA
@@ -212,7 +237,7 @@ PEDRA:
 CALCULA_POSICAO_PERSONAGEM_ROCHA:
 	la t2, posicao_inicial_personagem
 	lw t0, 0(t2)
-	lw t1, 4(t2)
+	lw t3, 4(t2)
 	
 	li s0, 0xff0
 	slli s0, s0, 20
@@ -221,7 +246,7 @@ CALCULA_POSICAO_PERSONAGEM_ROCHA:
 	mul t5, t0, t2
 	add s0, s0, t5
 	
-	mul t5, t1, t2
+	mul t5, t3, t2
 	li t2, 320
 	mul t5, t5, t2
 	add s0, s0, t5
@@ -261,6 +286,10 @@ MOVE_TELA_ROCHA:
 	li t0, 's'
 	beq t0, t2, MOVE_BAIXO_ROCHA
 	
+	li t0, 'i'
+	li s5, 2			#s9 = guarda o mapa que estava antes de abrir o inventário
+	beq t0, t2, ABRE_INVENTARIO
+	
 	ret
 
 
@@ -277,27 +306,57 @@ DIR1_ROCHA:
 DIR2_ROCHA:
 	la a0, posicao_inicial_personagem
 	lw t0, 0(a0)
-	addi t0, t0, 1	
+	addi t0, t0, 1
+	
+	lw t2, 4(a0)
+
+	li t3, 20
+	mul t2, t2, t3
+	
+	la a1, tiles_rochas
+	add a1, a1, t0
+	add a1, a1, t2
+	
+	li t3, 2
+	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_HORIZONTAL
+				
 	sw t0, 0(a0)
-	j INICIO_ROCHA
+	
+	j CHECA_INIMIGOS
 	
 MOVE_ESQUERDA_ROCHA:
-	li s8, 1
+	li s8, 0
 	beqz s7, ESQ1_ROCHA
-	la s6, ash_dir_dir
+	la s6, ash_esq_dir
 	li s7, 0
 	j ESQ2_ROCHA
 	
 ESQ1_ROCHA:
-	la s6, ash_dir_esq
+	la s6, ash_esq_esq
 	li s7, 1
 ESQ2_ROCHA:
 	la a0, posicao_inicial_personagem
 	lw t0, 0(a0)
 	addi t0, t0, -1	
-	sw t0, 0(a0)
-	j INICIO_ROCHA
 	
+	lw t2, 4(a0)
+
+	li t3, 20
+	mul t2, t2, t3
+	
+	la a1, tiles_rochas
+	add a1, a1, t0
+	add a1, a1, t2
+	
+	li t3, 2
+	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_HORIZONTAL
+	
+	sw t0, 0(a0)
+	
+	j CHECA_INIMIGOS
+		
 MOVE_CIMA_ROCHA:
 	li s8, 0
 	beqz s7, CIMA1_ROCHA
@@ -311,10 +370,26 @@ CIMA1_ROCHA:
 CIMA2_ROCHA:
 	la a0, posicao_inicial_personagem
 	lw t0, 4(a0)
-	addi t0, t0, -1	
+	addi t0, t0, -1
+	
+	bltz t0, KEY2_ROCHA	
+	
+	lw t2, 0(a0)
+	
+	li t3, 20
+	mul t5, t0, t3
+	
+	la a1, tiles_rochas
+	add a1, a1, t5
+	add a1, a1, t2
+	
+	li t3, 2
+	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_VERTICAL
 	
 	sw t0, 4(a0)
-	j INICIO_ROCHA
+	
+	j CHECA_INIMIGOS
 	
 MOVE_BAIXO_ROCHA:
 	li s8, 0
@@ -335,15 +410,105 @@ BAIXO2_ROCHA:
 	li t2, 15
 	bge t0, t2, TALVEZ_SAI_ROCHA
 	
+	lw t2, 0(a0)
+
+	li t3, 20
+	mul t5, t0, t3
+	
+	la a1, tiles_rochas
+	add a1, a1, t5
+	add a1, a1, t2
+	
+	li t3, 2
+	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_VERTICAL
+	
 	sw t0, 4(a0)
-	j INICIO_ROCHA
+	
+	j CHECA_INIMIGOS
 	
 TALVEZ_SAI_ROCHA:
+	li t2, 9
+	beq t1, t2, SAI_ROCHA
+	
 	li t2, 10
 	beq t1, t2, SAI_ROCHA
+	
+	li t2, 11
+	beq t1, t2, SAI_ROCHA
+	
+	lw t2, 0(a0)
+
+	li t3, 20
+	mul t5, t0, t3
+	
+	la a1, tiles_rochas
+	add a1, a1, t5
+	add a1, a1, t2
+	
+	li t3, 2
+	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_VERTICAL
 	
 	sw t0, 4(a0)
 	j INICIO_ROCHA
 	
 SAI_ROCHA:
 	j PALLET_TOWN
+
+CHECA_INIMIGOS:
+	la a2, inimigos
+	la a3, posicao_inicial_personagem
+	lw s1, 0(a3)
+	lw s2, 4(a3)
+	
+	li t3, 0
+	
+LOOP_CHECA_INIMIGOS:
+	lb t0, 0(a2)
+	
+	beq t0, s1, TALVEZ_INIMIGO
+	
+	addi t3, t3, 1
+	addi a2, a2, 3
+	li t2, 7
+	bne t2, t3, LOOP_CHECA_INIMIGOS
+	j INICIO_ROCHA
+	
+TALVEZ_INIMIGO:
+	lb t0, 1(a2)
+	
+	beq t0, s2, LUTA_INIMIGO
+	
+	addi t3, t3, 1
+	addi a2, a2, 3
+	li t2, 7
+	bne t2, t3, LOOP_CHECA_INIMIGOS
+	j INICIO_ROCHA
+	
+LUTA_INIMIGO:	
+	lb s11, 2(a2)
+	
+	sb zero, 0(a2)
+	sb zero, 1(a2)
+	sb zero, 2(a2)
+
+	j LUTA
+	
+TALVEZ_PARE_VERTICAL:
+	li t3, 4
+	lb t5, 0(a1)
+	bne t3, t5, KEY2_ROCHA 
+	
+	sw t0, 4(a0)
+	
+	j CHECA_INIMIGOS
+
+TALVEZ_PARE_HORIZONTAL:
+	li t3, 4
+	lb t5, 0(a1)
+	bne t3, t5, KEY2_ROCHA 
+	
+	sw t0, 0(a0)
+	
+	j CHECA_INIMIGOS
