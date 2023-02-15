@@ -20,7 +20,7 @@ DIALOGO:
 
     la a0, dialogo1
     li a1, 0
-    li a2, 80
+    li a2, 64
     li a3, 0x002D
     	call printString
 
@@ -612,8 +612,8 @@ RETORNA_PALLET_TOWN:
 ##############################
 ###        MENSAGENS      ####
 ##############################
-dialogo1:   .string "        Ola jogador!      "
-dialogo2:   .string "        Escolha seu primeiro pokemon!"
+dialogo1:   .string "        Ola jogador, sou o Professor       Carvalho!"
+dialogo2:   .string "        Estou aqui para auxilia-lo na escolha do seu primeiro pokemon!"
 dialogo3:   .string "        Escolha um pokemon: "
 dialogo4:   .string "        1- Charmander "
 dialogo5:   .string "        2- Bulbasaur "
