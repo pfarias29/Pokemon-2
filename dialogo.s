@@ -486,6 +486,21 @@ USA_POCAO:
     slli s0, s0, 20
     call DISPLAY_PRETO
 
+    la a0, dialogo15
+    li a1, 48
+    li a2, 160
+    li a3, 0x002D
+    call printString
+
+    li t1,0xFF200000		# carrega o endereço de controle do KDMMIO
+	lw t0,0(t1)			    # Le bit de Controle Teclado
+	andi t0,t0,0x0001		# mascara o bit menos significativo
+   	beq t0,zero,FIM_INVENTARIO # Se não há tecla pressionada então vai para FIM
+  	lw t2,4(t1)  			# le o valor da tecla tecla
+		        
+    li t3, 'z'		        
+   	bne t2, t3, RETORNA_MAPA
+
 
 USAR_ITEM:
     # percorrer o inventario
