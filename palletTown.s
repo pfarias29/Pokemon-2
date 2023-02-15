@@ -92,7 +92,6 @@ tiles: .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 posicao_inicial: .word 10,10
 posicao_personagem: .word 7,8
 
-
 .text
 PALLET_TOWN:	
 	li s7, 0			#s7 define o sprite do personagem andando
@@ -831,7 +830,36 @@ ENTRA_CASA:
 	j CASA
 
 VAI_ROCHA:
-	j ROCHAS
+	la a0, inventario_jogador
+	lb t0, 8(a0)
+	
+	li t2, 6
+	beq t2, t0, ROCHAS
+	
+### limite de paredes ###	
+	lw t2, 0(a0)
+	
+	la a1, posicao_personagem
+	lw t4, 0(a1)
+	lw t5, 4(a1)	
+	
+	add t4, t4, t2
+	add t5, t5, t0
+
+	li t3, 45
+	mul t5, t5, t3
+	
+	la a1, tiles
+	add a1, a1, t4
+	add a1, a1, t5
+	
+	li t3, 21
+	lb t5, 0(a1)
+	bne t3, t5, TALVEZ_PARE_VERTICAL_PT
+########################
+	
+	sw t0, 4(a0)
+	j COMECO
 	
 TALVEZ_PARE_HORIZONTAL_PT:
 	li t3, 22
@@ -862,6 +890,7 @@ TALVEZ_PARE_VERTICAL_PT1:
 	
 	sw t0, 4(a0)
 	j COMECO
+
 	
 
 .data
