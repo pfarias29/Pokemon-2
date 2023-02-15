@@ -29,7 +29,7 @@ PRINT_CHARMANDER:
     	li a1, 85
     	li a2, 90
     	li a3, 0
-    	call PRINT_D
+    	call PRINT
     	
     	j PRINT_INIMIGO
     
@@ -38,7 +38,7 @@ PRINT_BULBASAUR:
     	li a1, 85
     	li a2, 90
     	li a3, 0
-    	call PRINT_D
+    	call PRINT
     	
     	j PRINT_INIMIGO
  
@@ -47,7 +47,7 @@ PRINT_SQUIRTLE:
     	li a1, 85
     	li a2, 90
     	li a3, 0
-    	call PRINT_D
+    	call PRINT
     	
 PRINT_INIMIGO:
 	li t2, 1
@@ -64,17 +64,16 @@ PRINT_CHARMANDER_INIMIGO:
     	li a1, 235
     	li a2, 90
     	li a3, 0
-    	call PRINT_D
+    	call PRINT
     	
     	j FRASES_LUTA
-    	
-    	
+    	  	
 PRINT_BULBASAUR_INIMIGO:
 	la a0, bulbasaur
     	li a1, 235
     	li a2, 90
     	li a3, 0
-    	call PRINT_D
+    	call PRINT
     	
     	j FRASES_LUTA
     	
@@ -83,7 +82,7 @@ PRINT_SQUIRTLE_INIMIGO:
     	li a1, 235
     	li a2, 90
     	li a3, 0
-    	call PRINT_D 
+    	call PRINT 
     	
     	j FRASES_LUTA
     	
@@ -96,17 +95,17 @@ FRASES_LUTA:
 	la a0, str_luta2
     	li t0, 80
     	li t1, 150
-    	call PRINT_D_STR
+    	call PRINT_STR
 
 	la a0, str_luta3
     	li t0, 80
     	li t1, 165
-    	call PRINT_D_STR
+    	call PRINT_STR
     	
     	la a0, str_luta4
     	li t0, 80
     	li t1, 180
-    	call PRINT_D_STR
+    	call PRINT_STR
     	
 KEY_LUTA:
 	li t1,0xFF200000		# carrega o endereço de controle do KDMMIO
