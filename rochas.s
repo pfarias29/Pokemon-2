@@ -481,8 +481,8 @@ TALVEZ_INIMIGO:
 	beq t0, s2, LUTA_INIMIGO
 	
 	addi t3, t3, 1
-	addi a2, a2, 2
-	li t2, 4
+	addi a2, a2, 3
+	li t2, 7
 	bne t2, t3, LOOP_CHECA_INIMIGOS
 	j INICIO_ROCHA
 	

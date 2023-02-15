@@ -95,17 +95,17 @@ FRASES_LUTA:
 	la a0, str_luta2
     	li t0, 80
     	li t1, 150
-    	call PRINT_STR
+    	call PRINT_D_STR
 
 	la a0, str_luta3
     	li t0, 80
     	li t1, 165
-    	call PRINT_STR
+    	call PRINT_D_STR
     	
     	la a0, str_luta4
     	li t0, 80
     	li t1, 180
-    	call PRINT_STR
+    	call PRINT_D_STR
     	
 KEY_LUTA:
 	li t1,0xFF200000		# carrega o endereço de controle do KDMMIO
