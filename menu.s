@@ -99,7 +99,7 @@ SETUP:
     la a0, msg2
     call PRINT_STR
 
-    #call PLAY_SONG
+    #bcall PLAY_SONG
 
 # INICIAR O JOGO
     la a0, msg1
@@ -135,8 +135,8 @@ PRINT:
     mv t2, zero
     mv t3, zero
 
-    lw t4, 0(a0)
-    lw t5, 4(a0)
+    lb t4, 0(a0)
+    lb t5, 4(a0)
 
 PRINT_LINHA:
     lb t6, 0(t1)
@@ -163,7 +163,7 @@ PLAY_SONG:
     li a2, 3					# define o instrumento
 	li a3, 127					# define o volume
 	la s0, NUM				    # define o endereco do numero de notas
-	lw s1, 0(s0)				# le o numero de notas
+	lb s1, 0(s0)				# le o numero de notas
 	la s0, NOTAS				# define o endereco das notas
 	li t0, 0					# zera o contador de notas
 	li a2, 68					# define o instrumento
@@ -173,8 +173,8 @@ PLAY_SONG:
 
 LOOP: 
     beq t0, s1, FIM_SONG				# contador chegou no final? entao  va para FIM
-	lw a0, 0(s0)				# le o valor da nota
-	lw a1, 4(s0)				# le a duracao da nota
+	lb a0, 0(s0)				# le o valor da nota
+	lb a1, 4(s0)				# le a duracao da nota
 	li a7, 31					# define a chamada de syscall
 	ecall						# toca a not
 	mv a0, a1					# passa a duracao da nota para a pausa
@@ -196,10 +196,10 @@ FIM_SONG:
 
 KEY_MENU:
 	li t1,0xFF200000		# carrega o endereço de controle do KDMMIO
-	lw t0,0(t1)			    # Le bit de Controle Teclado
+	lb t0,0(t1)			    # Le bit de Controle Teclado
 	andi t0,t0,0x0001		# mascara o bit menos significativo
    	beq t0,zero,FIM_MENU   	# Se não há tecla pressionada então vai para FIM
-  	lw t2,4(t1)  			# le o valor da tecla tecla
+  	lb t2,4(t1)  			# le o valor da tecla tecla
     li t3, 's'		# carrega o valor da tecla S
    	beq t2,t3,PALLET_TOWN	# se a tecla for S então vai para mapa PalletTown
    	j FIM_MENU				# se não for S então volta para FIM_MENU

@@ -1,4 +1,14 @@
 .data
+
+##########################
+###        MAPAS       ###
+##########################
+.include "./dialogo.s"
+.include "./casa.s"
+.include "./luta.s"
+.include "./rochas.s"
+
+.data
 ##########################
 ###    Sprites casa   ####
 ##########################
@@ -67,13 +77,6 @@
 .include "./sprites/ash_esq_esq.s"
 .include "./sprites/ash_parado.s"
 
-##########################
-###        MAPAS       ###
-##########################
-.include "./casa.s"
-.include "./rochas.s"
-.include "./dialogo.s"
-.include "./luta.s"
 
 ##########################
 ### Pokemon do jogador ###

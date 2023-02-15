@@ -14,6 +14,7 @@
 ###########################
 ### Números que definem ###
 ###  a posição do Tile  ###
+###   tamanho: 45x40    ###
 ###   limite: 20x15     ###
 ###########################
 tiles_rochas: .byte 
@@ -480,8 +481,8 @@ TALVEZ_INIMIGO:
 	beq t0, s2, LUTA_INIMIGO
 	
 	addi t3, t3, 1
-	addi a2, a2, 3
-	li t2, 7
+	addi a2, a2, 2
+	li t2, 4
 	bne t2, t3, LOOP_CHECA_INIMIGOS
 	j INICIO_ROCHA
 	

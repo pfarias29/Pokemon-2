@@ -257,6 +257,10 @@ PEGA_POKEMON:
 
     	call DISPLAY_PRETO
     	
+    	la a0, vitorias_derrotas
+	sb zero, 0(a0)
+	sb zero, 1(a0)
+    	
     	la a0, str_luta8
     	li t0, 30
     	li t1, 100
@@ -311,18 +315,9 @@ LOOP_CAPTURA:
 COLOCA_INVENTARIO:
 	add t2, a0, t0
 	sb s11, 0(t2)
-	
-	la a0, vitorias_derrotas
-	sb zero, 0(a0)
-	sb zero, 1(a0)
-	
 	j ROCHAS
 	
 NAO_CAPTURA:
-	la a0, vitorias_derrotas
-	sb zero, 0(a0)
-	sb zero, 1(a0)
-
 	j ROCHAS
 
 

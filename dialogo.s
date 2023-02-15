@@ -285,7 +285,64 @@ POKEMON_SQUIRTLE:
     call KEY_DIALOGO
 
 # TODO: fazer voltar pro mapa de origem
+ABRE_INVENTARIO:    
+    li a0, 0x00000000
+    li t0, 0        #limite de colunas
+    li t1, 0        #limite de linhas
 
+    li s0, 0xff0
+    slli s0, s0, 20
+    call DISPLAY_PRETO
+
+    la a6, inventario_jogador
+
+    la a0, dialogo13
+    li t0, 80
+    li t1, 64
+    call PRINT_D_STR
+
+    la a0, dialogo14
+    li t0, 48
+    li t1, 160
+    call PRINT_D_STR
+
+    mv s10, zero
+    call LOOP_INVENTARIO
+
+SAIR_LOOP:
+    call KEY_INVENTARIO
+
+LOOP_INVENTARIO:
+    # t0 = inventario[0]
+    # s10 = contador
+    # 9 = tamanho do inventario
+    li t0, 9
+    beq s10, t0, SAIR_LOOP
+
+    lb t0, 0(a6)
+
+    li t4, 1
+    beq t4, t0, PRINT_CHARMANDER_INVENTORIO
+
+    li t4, 2
+    beq t4, t0, PRINT_BULBASAUR_INVENTORIO
+
+    li t4, 3
+    beq t4, t0, PRINT_SQUIRTLE_INVENTORIO
+    
+    li t4, 4
+    beq t4, t0, PRINT_POCAO
+
+    li t4, 5
+    beq t4, t0, PRINT_POKEBOLA
+
+    li t4, 6
+    beq t4, t0, PRINT_CHAVE
+
+RETORNA:
+    addi s10, s10, 1
+    addi a6, a6, 1
+    j LOOP_INVENTARIO
 
 PRINT_POCAO:
 	li t0, 3
