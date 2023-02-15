@@ -488,7 +488,13 @@ USA_POCAO:
 
     la a0, dialogo15
     li a1, 48
-    li a2, 160
+    li a2, 96
+    li a3, 0x002D
+    call printString
+
+    la a0, dialogo16
+    li a1, 16
+    li a2, 128
     li a3, 0x002D
     call printString
 
@@ -502,70 +508,64 @@ USA_POCAO:
    	bne t2, t3, RETORNA_MAPA
 
 
-USAR_ITEM:
-    # percorrer o inventario
-    la a0, inventario_jogador
-    li t0, 0
-
-    li t3, '1'	
-    bne t2, t3, TESTA2
-    sb t0, 0(a0)
-
-    j ABRE_INVENTARIO
-
 TESTA2:
     li t3, '2'	
     bne t2, t3, TESTA3
+    lb s6, 1(a0)    # numero do item do inventario
     sb t0, 1(a0)
 
-    j ABRE_INVENTARIO
+    call QUAL_USAR
 
 TESTA3:
     li t3, '3'	
     bne t2, t3, TESTA4
+    lb s6, 2(a0)    # numero do item do inventario    
     sb t0, 2(a0)
 
-    j ABRE_INVENTARIO
+    call QUAL_USAR
 
 TESTA4:
     li t3, '4'	
     bne t2, t3, TESTA5
+    lb s6, 3(a0)    # numero do item do inventario
     sb t0, 3(a0)
 
-    j ABRE_INVENTARIO
+    call QUAL_USAR
 
 TESTA5:
     li t3, '5'	
     bne t2, t3, TESTA6
+    lb s6, 4(a0)    # numero do item do inventario
     sb t0, 4(a0)
 
-    j ABRE_INVENTARIO
+    call QUAL_USAR
 
 TESTA6:
     li t3, '6'	
     bne t2, t3, TESTA7
+    lb s6, 5(a0)    # numero do item do inventario
     sb t0, 5(a0)
 
-    j ABRE_INVENTARIO
+    call QUAL_USAR
 
 TESTA7:
     li t3, '7'	
     bne t2, t3, TESTA8
+    lb s6, 6(a0)    # numero do item do inventario
     sb t0, 6(a0)
 
-    j ABRE_INVENTARIO
+    call QUAL_USAR
 
 TESTA8:
     li t3, '8'	
     bne t2, t3, TESTA9
+    lb s6, 7(a0)    # numero do item do inventario
     sb t0, 7(a0)
 
-    j ABRE_INVENTARIO
+    call QUAL_USAR
 
 TESTA9:
-    li t3, '9'	
-    bne t2, t3, KEY_INVENTARIO
-    sb t0, 8(a0)
+    j ABRE_INVENTARIO
 
 j KEY_INVENTARIO
 
@@ -579,13 +579,29 @@ RETORNA_MAPA:
 	li t0, 3
 	beq t0, s5, RETORNA_PALLET_TOWN
 	
+QUAL_USAR:
+
+    li t3, 4
+    beq s6, t3, USA_POCAO
+
+    j RETORNA_MAPA
+
+USAR_ITEM:
+    # percorrer o inventario
+    la a0, inventario_jogador
+    li t0, 0
+
+    li t3, '1'	
+    bne t2, t3, TESTA2
+    lb s6, 0(a0)    # numero do item do inventario
+    sb t0, 0(a0)    # zera o item do inventario
+
+    call QUAL_USAR
 
 RETORNA_CASA:
 	la a0, inventario_jogador
 	li t0, 6
 	sb t0, 8(a0)
-
-
     j CASA
 RETORNA_ROCHAS:
 	j ROCHAS
@@ -610,5 +626,6 @@ dialogo11:  .string "     Para escolher outro pokemon"
 dialogo12:  .string "     aperte o numero dele (1, 2, 3)"
 dialogo13:  .string "    INVENTARIO"
 dialogo14:  .string "  1 - 9 itens do inventario"
-dialogo15:  .string "     VOCE REPROVOU EM OAC O_O"
+dialogo15:  .string "      POCAO DO AZAR!"
+dialogo16:  .string "     VOCE REPROVOU EM OAC O_O"
 
