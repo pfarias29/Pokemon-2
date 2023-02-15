@@ -88,24 +88,28 @@ PRINT_SQUIRTLE_INIMIGO:
     	
 FRASES_LUTA:
 	la a0, str_luta1
-    	li t0, 80
-    	li t1, 135
-    	call PRINT_D_STR
+    	li a1, 80
+    	li a2, 135
+    	li a3, 0x002D
+    	call printString
 	
 	la a0, str_luta2
-    	li t0, 80
-    	li t1, 150
-    	call PRINT_D_STR
+    	li a1, 80
+    	li a2, 150
+    	li a3, 0x002D
+    	call printString
 
 	la a0, str_luta3
-    	li t0, 80
-    	li t1, 165
-    	call PRINT_D_STR
+    	li a1, 80
+    	li a2, 165
+    	li a3, 0x002D
+    	call printString
     	
     	la a0, str_luta4
-    	li t0, 80
-    	li t1, 180
-    	call PRINT_D_STR
+    	li a1, 80
+    	li a2, 180
+    	li a3, 0x002D
+    	call printString
     	
 KEY_LUTA:
 	li t1,0xFF200000		# carrega o endereço de controle do KDMMIO
@@ -176,9 +180,10 @@ EMPATE:
     	call DISPLAY_PRETO
     	
     	la a0, str_luta5
-    	li t0, 120
-    	li t1, 100
-    	call PRINT_D_STR
+    	li a1, 120
+    	li a2, 100
+    	li a3, 0x002D
+    	call printString
     	
     	li a0, 750
     	call Sleep
@@ -196,9 +201,10 @@ VITORIA:
     	call DISPLAY_PRETO
     	
     	la a0, str_luta6
-    	li t0, 120
-    	li t1, 100
-    	call PRINT_D_STR
+    	li a1, 120
+    	li a2, 100
+    	li a3, 0x002D
+    	call printString
     	
     	la a0, vitorias_derrotas
     	lb t0, 0(a0)
@@ -227,9 +233,10 @@ DERROTA:
     	call DISPLAY_PRETO
     	
     	la a0, str_luta7
-    	li t0, 120
-    	li t1, 100
-    	call PRINT_D_STR
+    	li a1, 120
+    	li a2, 100
+    	li a3, 0x002D
+    	call printString
     	
     	la a0, vitorias_derrotas
     	lb t0, 1(a0)
@@ -262,19 +269,22 @@ PEGA_POKEMON:
 	sb zero, 1(a0)
     	
     	la a0, str_luta8
-    	li t0, 30
-    	li t1, 100
-    	call PRINT_D_STR
+    	li a1, 30
+    	li a2, 100
+    	li a3, 0x002D
+    	call printString
     	
     	la a0, str_luta9
-    	li t0, 80
-    	li t1, 150
-    	call PRINT_D_STR
+    	li a1, 80
+    	li a2, 150
+    	li a3, 0x002D
+    	call printString
     	
     	la a0, str_luta10
-    	li t0, 170
-    	li t1, 150
-    	call PRINT_D_STR
+    	li a1, 170
+    	li a2, 150
+    	li a3, 0x002D
+    	call printString
     	
 KEY_CAPTURA:
 	li t1,0xFF200000		# carrega o endereço de controle do KDMMIO

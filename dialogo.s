@@ -19,39 +19,46 @@ DIALOGO:
     call PRINT_D
 
     la a0, dialogo1
-    li t0, 0
-    li t1, 80
-    call PRINT_D_STR
+    li a1, 0
+    li a2, 80
+    li a3, 0x002D
+    	call printString
 
     la a0, dialogo2
-    li t0, 0
-    li t1, 96
-    call PRINT_D_STR
+    li a1, 0
+    li a2, 96
+    li a3, 0x002D
+    	call printString
 
     la a0, dialogo3
-    li t0, 0
-    li t1, 112
-    call PRINT_D_STR
+    li a1, 0
+    li a2, 112
+    li a3, 0x002D
+    	call printString
 
     la a0, dialogo4
-    li t0, 0
-    li t1, 128
-    call PRINT_D_STR
+    li a1, 0
+    li a2, 128
+    li a3, 0x002D
+    	call printString
 
     la a0, dialogo5
-    li t0, 0
-    li t1, 144
-    call PRINT_D_STR
+    li a1, 0
+    li a2, 144
+    li a3, 0x002D
+    	call printString
 
     la a0, dialogo6
-    li t0, 0
-    li t1, 160
-    call PRINT_D_STR
+    li a1, 0
+    li a2, 160
+    li a3, 0x002D
+    	call printString
 
     la a0, dialogo7
-    li t0, 0
-    li t1, 176
-    call PRINT_D_STR
+    li a1, 0
+    li a2, 176
+    li a3, 0x002D
+    	call printString
 
     call KEY_DIALOGO
 
@@ -188,19 +195,22 @@ POKEMON_CHARMANDER:
     call PRINT_D
 
     la a0, dialogo8
-    li t0, 0
-    li t1, 128
-    call PRINT_D_STR
+    li a1, 0
+    li a2, 128
+    li a3, 0x002D
+    call printString
 
     la a0, dialogo11
-    li t0, 0
-    li t1, 160
-    call PRINT_D_STR
+    li a1, 0
+    li a2, 160
+    li a3, 0x002D
+    call printString
 
     la a0, dialogo12
-    li t0, 0
-    li t1, 176
-    call PRINT_D_STR
+    li a1, 0
+    li a2, 176
+    li a3, 0x002D
+    call printString
 
     call KEY_DIALOGO
 
@@ -225,19 +235,22 @@ POKEMON_BULBASAUR:
     call PRINT_D
 
     la a0, dialogo9
-    li t0, 0
-    li t1, 128
-    call PRINT_D_STR
+    li a1, 0
+    li a2, 128
+    li a3, 0x002D
+    	call printString
 
     la a0, dialogo11
-    li t0, 0
-    li t1, 160
-    call PRINT_D_STR
+    li a1, 0
+    li a2, 160
+    li a3, 0x002D
+    	call printString
 
     la a0, dialogo12
-    li t0, 0
-    li t1, 176
-    call PRINT_D_STR
+    li a1, 0
+    li a2, 176
+    li a3, 0x002D
+    	call printString
 
     call KEY_DIALOGO
 
@@ -263,24 +276,28 @@ POKEMON_SQUIRTLE:
     call PRINT_D
 
     la a0, dialogo8
-    li t0, 0
-    li t1, 128
-    call PRINT_D_STR
+    li a1, 0
+    li a2, 128
+    li a3, 0x002D
+    	call printString
 
     la a0, dialogo11
-    li t0, 0
-    li t1, 160
-    call PRINT_D_STR
+    li a1, 0
+    li a2, 160
+    li a3, 0x002D
+    	call printString
 
     la a0, dialogo10
-    li t0, 0
-    li t1, 176
-    call PRINT_D_STR
+    li a1, 0
+    li a2, 176
+    li a3, 0x002D
+    	call printString
 
     la a0, dialogo12
-    li t0, 0
-    li t1, 176
-    call PRINT_D_STR
+    li a1, 0
+    li a2, 176
+    li a3, 0x002D
+    	call printString
 
     call KEY_DIALOGO
 
@@ -297,14 +314,16 @@ ABRE_INVENTARIO:
     la a6, inventario_jogador
 
     la a0, dialogo13
-    li t0, 80
-    li t1, 64
-    call PRINT_D_STR
+    li a1, 80
+    li a2, 64
+    li a3, 0x002D
+    	call printString
 
     la a0, dialogo14
-    li t0, 48
-    li t1, 160
-    call PRINT_D_STR
+    li a1, 48
+    li a2, 160
+    li a3, 0x002D
+    	call printString
 
     mv s10, zero
     call LOOP_INVENTARIO
