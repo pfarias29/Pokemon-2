@@ -99,7 +99,7 @@ SETUP:
     la a0, msg2
     call PRINT_STR
 
-    #bcall PLAY_SONG
+    #call PLAY_SONG
 
 # INICIAR O JOGO
     la a0, msg1
@@ -139,13 +139,13 @@ PRINT:
     lw t5, 4(a0)
 
 PRINT_LINHA:
-    lw t6, 0(t1)
-    sw t6, 0(t0)
+    lb t6, 0(t1)
+    sb t6, 0(t0)
 
-    addi t0, t0, 4
-    addi t1, t1, 4
+    addi t0, t0, 1
+    addi t1, t1, 1
 
-    addi t3, t3, 4
+    addi t3, t3, 1
 
     blt t3, t4, PRINT_LINHA
 

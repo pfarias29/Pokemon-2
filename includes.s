@@ -75,7 +75,6 @@
 .include "./dialogo.s"
 .include "./luta.s"
 
-
 ##########################
 ### Pokemon do jogador ###
 ##########################
